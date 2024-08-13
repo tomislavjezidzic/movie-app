@@ -1,0 +1,10 @@
+.o-header {
+    padding-left: percentage(3, 24);
+    padding-right: percentage(3, 24);
+    position: relative;
+
+    @include mq(lg) {
+        padding-left: percentage(1, 24);
+        padding-right: percentage(1, 24);
+    }
+}

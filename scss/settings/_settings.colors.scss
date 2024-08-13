@@ -1,0 +1,78 @@
+/**
+ * Colors
+ */
+$white: #fcfcfc;
+$black: #000000;
+$black-0: rgba($black, 0);
+$black-10: rgba($black, 0.1);
+$black-20: rgba($black, 0.2);
+$black-30: rgba($black, 0.3);
+$black-40: rgba($black, 0.4);
+$black-50: rgba($black, 0.5);
+$black-60: rgba($black, 0.6);
+$black-70: rgba($black, 0.7);
+$black-80: rgba($black, 0.8);
+$black-90: rgba($black, 0.9);
+$black-100: rgba($black, 1);
+$mango: #f7b334;
+$slate: #3c5163;
+$red: #ff0000;
+
+$teal-100: #d9f4ef;
+$teal-200: #b2eadf;
+$teal-300: #70dac8;
+$teal-400: #5ccab1;
+$teal-500: #3f8e7d;
+$teal-600: #2a6458;
+$teal-700: #0a221d;
+$grey-100: #f2efea;
+$grey-200: #d6d0c9;
+$grey-300: #b5b1ac;
+$grey-400: #85837e;
+$grey-500: #54514e;
+$grey-600: #32312d;
+$grey-700: #1e201d;
+$white-background: #f4f4f4;
+$grey-background: #e6e6e6;
+$active-link: #368171;
+
+/**
+ * Colors - focus accessibility
+ */
+$focus-indicator-divider-color: $white;
+$focus-indicator-color: $black;
+
+/**
+ * Colors - re-assigning
+ */
+$primary-color: $mango;
+$secondary-color: $slate;
+$tertiary-color: $white;
+
+/**
+ * Colors - map
+ * used for generating css variables
+ */
+$settings-colors: (
+    "white": $white,
+    "black": $black,
+    "mango": $mango,
+    "slate": $slate,
+    "teal-100": $teal-100,
+    "teal-200": $teal-200,
+    "teal-300": $teal-300,
+    "teal-400": $teal-400,
+    "teal-500": $teal-500,
+    "teal-600": $teal-600,
+    "teal-700": $teal-700,
+    "grey-100": $grey-100,
+    "grey-200": $grey-200,
+    "grey-300": $grey-300,
+    "grey-400": $grey-400,
+    "grey-500": $grey-500,
+    "grey-600": $grey-600,
+    "grey-700": $grey-700,
+    "white-background": $white-background,
+    "grey-background": $grey-background,
+    "active-link": $active-link,
+);
