@@ -1,9 +1,7 @@
-'use client';
 import NextLink from 'next/link';
 import styles from './MovieCard.module.scss';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
-import { useAppContext } from '../../../context';
 import useLocalStorage from '@hooks/useLocalStorage';
 
 export interface MovieCardProps {
@@ -19,30 +17,25 @@ export interface MovieCardProps {
 
 const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
     const [isFavorited, setIsFavorited] = useState(false);
-    const { state, setState } = useAppContext();
 
     useEffect(() => {
-        setIsFavorited(state?.ids?.includes(id));
-    }, [isFavorited, state]);
+        const items = useLocalStorage('favorite_movies');
+        setIsFavorited(items?.value?.includes(id) ?? false);
+    }, [isFavorited]);
 
     const handleClick = useCallback(() => {
         const items = useLocalStorage('favorite_movies');
 
-        const storageIds = items?.value !== null ? items : { value: [] };
-        if (storageIds.value.includes(id)) {
-            storageIds.value = storageIds.value.filter(item => item !== id);
-            setState({
-                ids: state?.ids.filter(item => item !== id),
-            });
+        const storageIds = items?.value !== null ? JSON.parse(items.value) : [];
+        if (storageIds.includes(id)) {
+            storageIds.splice(storageIds.indexOf(id), 1);
         } else {
-            storageIds.value.push(id);
-            setState({
-                ids: [...state?.ids, id],
-            });
+            storageIds.push(id);
         }
 
-        localStorage.setItem('favorite_movies', JSON.stringify(storageIds.value));
-    }, [state]);
+        setIsFavorited(storageIds?.includes(id) ?? false);
+        useLocalStorage('favorite_movies', true, JSON.stringify(storageIds));
+    }, []);
 
     return (
         <div className={styles.card}>
