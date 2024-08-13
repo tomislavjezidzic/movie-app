@@ -1,11 +1,5 @@
-interface Data {
-    key: string;
-    set?: boolean;
-    value?: any;
-}
-
-const useLocalStorage = (key: string, set?: boolean, value?: any) => {
-    if (set) {
+const useLocalStorage = (key: string, value?: any): { value: any } => {
+    if (value) {
         localStorage.setItem(key, JSON.stringify(value));
     } else {
         const data = localStorage.getItem(key);
