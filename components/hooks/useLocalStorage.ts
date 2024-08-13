@@ -4,7 +4,7 @@ interface Data {
     value?: any;
 }
 
-const useLocalStorage = (key, set = false, value) => {
+const useLocalStorage = (key: string, set?: boolean, value?: any) => {
     if (set) {
         localStorage.setItem(key, JSON.stringify(value));
     } else {
