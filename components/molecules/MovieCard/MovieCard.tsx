@@ -64,7 +64,7 @@ const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
             <div className={styles.content}>
                 <p className={cn(styles.title, 'u-b0')}>{title}</p>
                 <button onClick={handleClick} className={styles.favoriteBtn}>
-                    {isFavorited ? <Icon name="heartOutline" /> : <Icon name="heartFill" />}
+                    {isFavorited ? <Icon name="heartFill" /> : <Icon name="heartOutline" />}
                 </button>
             </div>
         </div>
