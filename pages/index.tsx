@@ -27,47 +27,19 @@ const IndexPage = (data: { newest: any; popularAnimation: any; popularAction: an
 
 export const getStaticProps: GetStaticProps = async () => {
     const newestResponse = await axios.get(
-        `${process.env.TMDB_BASE_URL_ENDPOINT}/movie/now_playing?language=en-US&page=1`,
-        {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: process.env.TMDB_API_AUTHORIZATION,
-            },
-        }
+        `${process.env.TMDB_BASE_URL_ENDPOINT}/movie/now_playing?language=en-US&page=1&api_key=${process.env.TMDB_API_KEY}`
     );
 
     const popularActionResponse = await axios.get(
-        `${process.env.TMDB_BASE_URL_ENDPOINT}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=28`,
-        {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: process.env.TMDB_API_AUTHORIZATION,
-            },
-        }
+        `${process.env.TMDB_BASE_URL_ENDPOINT}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=28&api_key=${process.env.TMDB_API_KEY}`
     );
 
     const popularAnimationResponse = await axios.get(
-        `${process.env.TMDB_BASE_URL_ENDPOINT}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=16`,
-        {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: process.env.TMDB_API_AUTHORIZATION,
-            },
-        }
+        `${process.env.TMDB_BASE_URL_ENDPOINT}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=16&api_key=${process.env.TMDB_API_KEY}`
     );
 
     const topResponse = await axios.get(
-        `${process.env.TMDB_BASE_URL_ENDPOINT}/movie/top_rated?language=en-US&page=1`,
-        {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: process.env.TMDB_API_AUTHORIZATION,
-            },
-        }
+        `${process.env.TMDB_BASE_URL_ENDPOINT}/movie/top_rated?language=en-US&page=1&api_key=${process.env.TMDB_API_KEY}`
     );
 
     type GetDataResponse = {

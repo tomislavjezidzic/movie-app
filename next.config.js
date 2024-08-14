@@ -10,6 +10,11 @@ const modules = {
     images: {
         domains: ['picsum.photos', 'image.tmdb.org'],
     },
+    experimental: {
+        serverActions: {
+            allowedOrigins: ['https://api.themoviedb.org/', '*.themoviedb.org'],
+        },
+    },
 };
 
 module.exports = modules;

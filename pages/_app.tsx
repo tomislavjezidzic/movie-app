@@ -5,7 +5,6 @@ import { setGlobalCSSVariable } from '@libs/helpers';
 import Fonts from '@organisms/layout/Fonts';
 import SeoHead from '@organisms/layout/SeoHead';
 import 'scss/style.scss';
-import { AppWrapper, useAppContext } from '../context';
 
 type AppProps<P = any> = {
     pageProps: P;
@@ -25,13 +24,13 @@ const App = ({ Component, pageProps }: AppProps) => {
     });
 
     return (
-        <AppWrapper>
+        <>
             <Fonts />
             <SeoHead />
             <main className="o-page">
                 <Component {...pageProps} />
             </main>
-        </AppWrapper>
+        </>
     );
 };
 

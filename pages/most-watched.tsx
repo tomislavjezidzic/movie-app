@@ -5,6 +5,7 @@ import slugify from 'slugify';
 import MovieList from '@organisms/MovieList';
 import Header from '@organisms/layout/Header';
 import Footer from '@organisms/layout/Footer';
+import { getMovies } from '../actions/getMovies';
 
 const MostWatchedPage = (data: { results: any }) => {
     return (
@@ -20,14 +21,7 @@ const MostWatchedPage = (data: { results: any }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
     const data = await axios.get(
-        `${process.env.TMDB_BASE_URL_ENDPOINT}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`,
-        {
-            method: 'GET',
-            headers: {
-                accept: 'application/json',
-                Authorization: process.env.TMDB_API_AUTHORIZATION,
-            },
-        }
+        `${process.env.TMDB_BASE_URL_ENDPOINT}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${process.env.TMDB_API_KEY}`
     );
 
     type GetDataResponse = {
