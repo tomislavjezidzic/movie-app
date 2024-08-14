@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps = async () => {
             results: data?.data?.results?.map((item: GetDataResponse): MovieCardProps => {
                 return {
                     image: {
-                        src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w200${item.poster_path}`,
+                        src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w300${item.poster_path}`,
                         alt: item.title,
                     },
                     title: item.title,
@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 };
             }),
         },
-        revalidate: 10,
+        revalidate: 3600,
     };
 };
 

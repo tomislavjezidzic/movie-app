@@ -1,0 +1,75 @@
+.main {
+    overflow: hidden;
+    padding-top: var(--s-40);
+    padding-bottom: var(--s-40);
+}
+
+.inner {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.titleWrapper {
+    @include fluidValue('width', null, 150px);
+}
+
+.listWrapper {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    margin-right: var(--neg-s-60);
+
+    &:after {
+        content: '';
+        display: block;
+        flex: 0 0 auto;
+        width: var(--s-150);
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            rgba($primary-color, 0) 0%,
+            rgba($primary-color, 0.5) 40%,
+            $primary-color 100%
+        );
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    &:before {
+        content: '';
+        display: block;
+        flex: 0 0 auto;
+        width: var(--s-30);
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: linear-gradient(
+            -90deg,
+            rgba($primary-color, 0) 0%,
+            rgba($primary-color, 0.5) 40%,
+            $primary-color 100%
+        );
+        z-index: 2;
+        pointer-events: none;
+    }
+}
+
+.list {
+    padding-left: var(--s-30);
+    padding-right: var(--s-100);
+    overflow: auto;
+    display: flex;
+    @include hide-scrollbar;
+}
+
+.item {
+    white-space: normal;
+    flex: 1 0 auto;
+    margin-right: var(--s-15);
+    @include fluidValue('width', null, 200px);
+}

@@ -1,0 +1,27 @@
+.main {
+    overflow: hidden;
+    padding-top: var(--s-40);
+    padding-bottom: var(--s-40);
+}
+
+.inner {
+}
+
+.titleWrapper {
+    text-align: center;
+    margin-bottom: var(--s-30);
+}
+
+.listWrapper {
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.item {
+    padding: 0 var(--s-15);
+    @include fluidValue('width', null, 300px);
+}
