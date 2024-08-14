@@ -10,7 +10,7 @@ import slugify from 'slugify';
 const IndexPage = (data: { newest: any; popularAnimation: any; popularAction: any; top: any }) => {
     return (
         <>
-            <Header title="Movie App Homepage" />
+            <Header title="Movie App Homepage" centered />
 
             <MoviesRow title="Newest" items={data.newest} />
 

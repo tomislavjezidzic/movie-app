@@ -19,9 +19,26 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
+    @include mq(sm) {
+        justify-content: flex-start;
+    }
 }
 
 .item {
-    padding: 0 var(--s-15);
+    padding: 0 var(--s-15) var(--s-15);
     @include fluidValue('width', null, 300px);
+
+    @include mq(lg) {
+        width: 250px;
+    }
+
+    @include mq(sm-md) {
+        width: 220px;
+    }
+
+    @include mq(sm) {
+        padding: 10px 5px;
+        width: 50%;
+    }
 }
