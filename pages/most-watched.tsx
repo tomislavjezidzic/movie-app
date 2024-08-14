@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps = async () => {
                     },
                     title: item.title,
                     score: parseFloat(item.vote_average).toFixed(2),
-                    url: slugify(item.title),
+                    url: slugify(item.title).toLowerCase(),
                     id: item.id,
                 };
             }),

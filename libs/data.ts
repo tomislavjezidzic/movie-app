@@ -1,6 +1,6 @@
 export const GLOBALS = {
-    title: 'BFS Next.js Starter',
-    alt: 'BFS Next.js Starter',
+    title: 'Movie App',
+    alt: 'Movie App',
     shareImage: '/images/share.png',
 };
 

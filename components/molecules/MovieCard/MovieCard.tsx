@@ -18,8 +18,6 @@ export interface MovieCardProps {
 }
 
 const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
-    console.log(image.src);
-
     const [isFavorited, setIsFavorited] = useState(false);
 
     useEffect(() => {
