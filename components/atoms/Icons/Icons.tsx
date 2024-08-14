@@ -2,11 +2,17 @@ import React from 'react';
 import { ArrowRight } from './arrowRight';
 import { Checkmark } from './checkmark';
 import { ChevronDown } from './chevronDown';
+import { Star } from '@atoms/Icons/star';
+import { HeartOutline } from '@atoms/Icons/heartOutline';
+import { HeartFill } from '@atoms/Icons/heartFill';
 
 const ICON_MAP = {
     arrowRight: ArrowRight,
     checkmark: Checkmark,
     chevronDown: ChevronDown,
+    star: Star,
+    heartOutline: HeartOutline,
+    heartFill: HeartFill,
 };
 
 export const icons = Object.keys(ICON_MAP);

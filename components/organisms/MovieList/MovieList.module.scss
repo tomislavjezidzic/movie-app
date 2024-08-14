@@ -1,0 +1,11 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(var(--s-10) * -1);
+    margin-right: calc(var(--s-10) * -1);
+}
+
+.item {
+    width: percentage(1, 5);
+    padding: var(--s-10);
+}

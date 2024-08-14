@@ -3,6 +3,8 @@ import styles from './MovieCard.module.scss';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import useLocalStorage from '@hooks/useLocalStorage';
+import cn from 'classnames';
+import Icon from '@atoms/Icons';
 
 export interface MovieCardProps {
     image?: {
@@ -16,6 +18,8 @@ export interface MovieCardProps {
 }
 
 const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
+    console.log(image.src);
+
     const [isFavorited, setIsFavorited] = useState(false);
 
     useEffect(() => {
@@ -39,12 +43,30 @@ const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
 
     return (
         <div className={styles.card}>
-            <NextLink href={url}>
-                {image && <Image src={image.src} alt={image.alt} width={200} height={300} />}
-                <p className={styles.title}>{title}</p>
-                <p className={styles.score}>{score}</p>
-            </NextLink>
-            <button onClick={handleClick}>favorite {isFavorited ? '❤️' : '🤍'}</button>
+            <NextLink href={url} className={styles.link}></NextLink>
+            {image && (
+                <div className={styles.imageContainer}>
+                    <Image
+                        src={image.src}
+                        alt={image.alt}
+                        width={200}
+                        height={300}
+                        className={styles.image}
+                    />
+                </div>
+            )}
+            <div className={styles.content}>
+                <p className={cn(styles.title, 'u-a2')}>{title}</p>
+                <p className={cn(styles.score, 'u-b2')}>
+                    <span>
+                        <Icon name="star" />
+                    </span>
+                    {score}
+                </p>
+                <button onClick={handleClick} className={styles.favoriteBtn}>
+                    {isFavorited ? <Icon name="heartOutline" /> : <Icon name="heartFill" />}
+                </button>
+            </div>
         </div>
     );
 };

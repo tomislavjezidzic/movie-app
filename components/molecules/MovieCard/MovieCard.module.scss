@@ -1,2 +1,61 @@
 .card {
+    position: relative;
+}
+
+.favoriteBtn {
+    @include button-reset;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    z-index: 2;
+    color: var(--red);
+    font-size: 1.8em;
+}
+
+.title {
+    margin-bottom: var(--s-5);
+}
+
+.score {
+    display: inline-flex;
+    align-items: center;
+    color: var(--grey);
+
+    span {
+        color: var(--mango);
+        font-size: 1.2em;
+        padding-right: var(--s-5);
+    }
+}
+
+.content {
+    position: relative;
+    padding-right: var(--s-40);
+}
+
+.link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: block;
+
+    @include hover {
+        & + .imageContainer .image {
+            transform: scale(1.06);
+        }
+    }
+}
+
+.image {
+    transition: transform 0.3s ease-out;
+}
+
+.imageContainer {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--s-15);
 }

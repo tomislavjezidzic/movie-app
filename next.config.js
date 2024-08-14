@@ -8,7 +8,7 @@ const modules = {
         localeDetection: false,
     },
     images: {
-        domains: ['picsum.photos'],
+        domains: ['picsum.photos', 'image.tmdb.org'],
     },
 };
 
