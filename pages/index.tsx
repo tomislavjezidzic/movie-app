@@ -84,7 +84,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 .map((item: GetDataResponse): MovieCardProps => {
                     return {
                         image: {
-                            src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w200${item.poster_path}`,
+                            src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w400${item.poster_path}`,
                             alt: item.title,
                         },
                         title: item.title,
