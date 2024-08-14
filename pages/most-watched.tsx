@@ -4,6 +4,7 @@ import axios from 'axios';
 import slugify from 'slugify';
 import MovieList from '@organisms/MovieList';
 import Header from '@organisms/layout/Header';
+import Footer from '@organisms/layout/Footer';
 
 const MostWatchedPage = (data: { results: any }) => {
     return (
@@ -11,6 +12,8 @@ const MostWatchedPage = (data: { results: any }) => {
             <Header title="Most Watched" />
 
             <MovieList items={data.results} />
+
+            <Footer />
         </>
     );
 };

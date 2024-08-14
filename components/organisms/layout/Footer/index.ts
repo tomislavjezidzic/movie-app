@@ -1,5 +1,5 @@
-import MovieList, { MovieListProps } from './MovieList';
+import Footer, { MovieListProps } from './Footer';
 
 export type { MovieListProps };
 
-export default MovieList;
+export default Footer;
