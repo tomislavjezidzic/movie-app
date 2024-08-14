@@ -29,6 +29,22 @@
     }
 }
 
+.scoreContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--s-10) var(--s-10) var(--s-20);
+    z-index: 1;
+    text-align: right;
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.3) 30%,
+        rgba(0, 0, 0, 1) 100%
+    );
+}
+
 .content {
     position: relative;
     padding-right: var(--s-40);

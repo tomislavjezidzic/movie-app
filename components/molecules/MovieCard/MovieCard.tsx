@@ -46,6 +46,14 @@ const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
             <NextLink href={url} className={styles.link}></NextLink>
             {image && (
                 <div className={styles.imageContainer}>
+                    <div className={styles.scoreContainer}>
+                        <p className={cn(styles.score, 'u-b2')}>
+                            <span>
+                                <Icon name="star" />
+                            </span>
+                            {score}
+                        </p>
+                    </div>
                     <Image
                         src={image.src}
                         alt={image.alt}
@@ -57,12 +65,6 @@ const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
             )}
             <div className={styles.content}>
                 <p className={cn(styles.title, 'u-a2')}>{title}</p>
-                <p className={cn(styles.score, 'u-b2')}>
-                    <span>
-                        <Icon name="star" />
-                    </span>
-                    {score}
-                </p>
                 <button onClick={handleClick} className={styles.favoriteBtn}>
                     {isFavorited ? <Icon name="heartOutline" /> : <Icon name="heartFill" />}
                 </button>

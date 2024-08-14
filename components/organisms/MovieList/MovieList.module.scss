@@ -7,5 +7,5 @@
 
 .item {
     width: percentage(1, 5);
-    padding: var(--s-10);
+    padding: var(--s-10) var(--s-10) var(--s-20);
 }
