@@ -17,8 +17,8 @@ const MoviesRow = ({ title, items }: MoviesRowProps) => {
                     </div>
                     <div className={styles.listWrapper}>
                         <div className={styles.list}>
-                            {items.map((movie: MovieCardProps) => (
-                                <div className={styles.item}>
+                            {items.map((movie: MovieCardProps, key) => (
+                                <div className={styles.item} key={`movie-${key}`}>
                                     <MovieCard {...movie} />
                                 </div>
                             ))}

@@ -17,8 +17,8 @@ const MoviesScrollableRow = ({ title, items }: MoviesScrollableRowProps) => {
                     </div>
                     <div className={styles.listWrapper}>
                         <div className={styles.list}>
-                            {items.map((movie: MovieCardProps) => (
-                                <div className={styles.item}>
+                            {items.map((movie: MovieCardProps, key) => (
+                                <div className={styles.item} key={`movie-list-item-${key}`}>
                                     <MovieCard {...movie} />
                                 </div>
                             ))}

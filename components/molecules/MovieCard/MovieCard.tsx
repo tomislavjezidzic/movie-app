@@ -2,7 +2,7 @@ import NextLink from 'next/link';
 import styles from './MovieCard.module.scss';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
-import useLocalStorage from '@hooks/useLocalStorage';
+import { useLocalstorageState } from '@hooks/useLocalstorageState';
 import cn from 'classnames';
 import Icon from '@atoms/Icons';
 
@@ -19,16 +19,14 @@ export interface MovieCardProps {
 
 const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
     const [isFavorited, setIsFavorited] = useState(false);
+    const [movieIds, setMovieIds] = useLocalstorageState('favorite_movies', '');
 
     useEffect(() => {
-        const movieIds = useLocalStorage('favorite_movies');
-        setIsFavorited(movieIds?.value?.includes(id) ?? false);
-    }, [isFavorited]);
+        setIsFavorited(movieIds?.includes(id) ?? false);
+    }, [isFavorited, movieIds]);
 
     const handleClick = useCallback(() => {
-        const movieIds = useLocalStorage('favorite_movies');
-
-        const storageIds = movieIds?.value !== null ? JSON.parse(movieIds.value) : [];
+        const storageIds = movieIds !== null ? JSON.parse(movieIds) : [];
         if (storageIds.includes(id)) {
             storageIds.splice(storageIds.indexOf(id), 1);
         } else {
@@ -36,12 +34,12 @@ const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
         }
 
         setIsFavorited(storageIds?.includes(id) ?? false);
-        useLocalStorage('favorite_movies', JSON.stringify(storageIds));
-    }, []);
+        setMovieIds(JSON.stringify(storageIds));
+    }, [movieIds]);
 
     return (
         <div className={styles.card}>
-            <NextLink href={url} className={styles.link}></NextLink>
+            <NextLink href={url} className={styles.link}/>
             {image && (
                 <div className={styles.imageContainer}>
                     <div className={styles.scoreContainer}>
