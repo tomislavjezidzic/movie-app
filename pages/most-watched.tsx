@@ -5,13 +5,23 @@ import slugify from 'slugify';
 import MovieList from '@organisms/MovieList';
 import Header from '@organisms/layout/Header';
 import Footer from '@organisms/layout/Footer';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MovieCardPropsResponse } from 'types/interfaces';
 import { getMostWatched } from '@libs/movieClient';
+import { useIntersectionObserverRef } from '@hooks/useIntersectionObserverRef';
 
 const MostWatchedPage = (initialData: { results: any }) => {
     const [page, setPage] = useState(2);
     const [data, setData] = useState(initialData.results);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const callback = (entries: IntersectionObserverEntry[]) => {
+        if (entries[0].intersectionRatio === 1 && !isLoading) {
+            loadMore();
+        }
+    };
+
+    const [loadMoreRef] = useIntersectionObserverRef(callback);
 
     const makeApiCall = async () => {
         return await fetch('/api/movies', {
@@ -20,13 +30,14 @@ const MostWatchedPage = (initialData: { results: any }) => {
         });
     };
 
-    const handleClick = useCallback(() => {
-        makeApiCall().then(r => {
-            r.json().then(newData => {
-                console.log(newData.remappedResults);
+    const loadMore = useCallback(() => {
+        setIsLoading(true);
 
-                setPage(p => p + 1);
+        makeApiCall().then(response => {
+            response.json().then(newData => {
                 setData([...data, ...newData.remappedResults]);
+                setPage(p => p + 1);
+                setIsLoading(false);
             });
         });
     }, [makeApiCall]);
@@ -35,9 +46,9 @@ const MostWatchedPage = (initialData: { results: any }) => {
         <>
             <Header title="Most Watched" />
 
-            <MovieList items={data} />
+            <MovieList items={data} isLoading={isLoading} />
 
-            <button onClick={() => handleClick()}>load more</button>
+            <div ref={loadMoreRef} />
 
             <Footer />
         </>

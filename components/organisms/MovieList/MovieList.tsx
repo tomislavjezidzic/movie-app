@@ -4,11 +4,16 @@ import cn from 'classnames';
 
 export interface MovieListProps {
     items: MovieCardProps[];
+    isLoading?: boolean;
 }
 
-const MovieList = ({ items }: MovieListProps) => {
+const MovieList = ({ items, isLoading = false }: MovieListProps) => {
     return (
-        <section className={cn(styles.main, 'o-section')}>
+        <section
+            className={cn(styles.main, 'o-section', {
+                [styles.isLoading]: isLoading,
+            })}
+        >
             <div className="o-container">
                 <div className={styles.list}>
                     {items.map((movie: MovieCardProps, key) => (
