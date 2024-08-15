@@ -22,30 +22,30 @@ const SingleMoviePage = ({ cover_image, poster_image, title, score }: SingleMovi
 };
 
 export const getStaticProps = async ({ params }) => {
-    const movieId = params?.slug?.split('-');
+    const movieId = params?.slug?.split('-')[0];
     const responseData = await getMovie(movieId);
 
-    // @ts-ignore
-    const data = responseData?.data;
+    if (responseData && responseData.data) {
+        const data = responseData.data;
 
-    if (!responseData) {
+        // Use the data variable here
+        return {
+            props: {
+                slug: params?.slug,
+                title: data.title,
+                score: data.vote_average,
+                cover_image: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/original${data.backdrop_path}`,
+                poster_image: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w300${data.poster_path}`,
+            },
+            revalidate: 3600,
+        };
+    } else {
         return {
             redirect: {
                 destination: '/404',
             },
         };
     }
-
-    return {
-        props: {
-            slug: params?.slug,
-            title: data.title,
-            score: data.vote_average,
-            cover_image: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/original${data.backdrop_path}`,
-            poster_image: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w300${data.poster_path}`,
-        },
-        revalidate: 3600,
-    };
 };
 
 export const getStaticPaths: GetStaticPaths = async context => {
