@@ -15,9 +15,10 @@ export interface MovieCardProps {
     score?: string;
     slug?: string;
     id?: string;
+    lazyLoad?: boolean;
 }
 
-const MovieCard = ({ image, slug, score, title, id }: MovieCardProps) => {
+const MovieCard = ({ image, slug, score, title, id, lazyLoad = true }: MovieCardProps) => {
     const [isFavorited, setIsFavorited] = useState(false);
     const [movieIds, setMovieIds] = useLocalstorageState('favorite_movies', '');
 
@@ -59,9 +60,11 @@ const MovieCard = ({ image, slug, score, title, id }: MovieCardProps) => {
                         width={200}
                         height={300}
                         className={styles.image}
+                        priority={!lazyLoad}
                     />
                 </div>
             )}
+
             <div className={styles.content}>
                 <p className={cn(styles.title, 'u-b0')}>{title}</p>
                 <button onClick={handleClick} className={styles.favoriteBtn}>

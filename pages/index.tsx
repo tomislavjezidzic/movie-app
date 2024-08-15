@@ -13,7 +13,7 @@ const IndexPage = (data: { newest: any; popularAnimation: any; popularAction: an
         <>
             <Header title="Movie App Homepage" centered />
 
-            <MoviesRow title="Newest" items={data.newest} />
+            <MoviesRow title="Newest" items={data.newest} lazyLoad={false} />
 
             <MoviesRow title="Top Rated" items={data.top} />
 

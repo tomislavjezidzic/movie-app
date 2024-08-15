@@ -5,9 +5,10 @@ import cn from 'classnames';
 export interface MoviesRowProps {
     title: string;
     items: MovieCardProps[];
+    lazyLoad?: boolean;
 }
 
-const MoviesRow = ({ title, items }: MoviesRowProps) => {
+const MoviesRow = ({ title, items, lazyLoad = true }: MoviesRowProps) => {
     return (
         <section className={cn(styles.main, 'o-section')}>
             <div className="o-container">
@@ -19,7 +20,7 @@ const MoviesRow = ({ title, items }: MoviesRowProps) => {
                         <div className={styles.list}>
                             {items.map((movie: MovieCardProps, key) => (
                                 <div className={styles.item} key={`movie-${key}`}>
-                                    <MovieCard {...movie} />
+                                    <MovieCard {...movie} lazyLoad={lazyLoad} />
                                 </div>
                             ))}
                         </div>
