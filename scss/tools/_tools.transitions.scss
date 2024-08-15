@@ -1,11 +1,11 @@
 /**
  * Get transition easing from $settings-transitions-easing
  */
-@function getTransitionEasing($transitionEasing: "default") {
+@function getTransitionEasing($transitionEasing: 'default') {
     @if (map-has_key($settings-transitions-easing, $transitionEasing)) {
         @return map-get($settings-transitions-easing, $transitionEasing);
     } @else {
-        @return map-get($settings-transitions-easing, "default");
+        @return map-get($settings-transitions-easing, 'default');
     }
 }
 
@@ -17,11 +17,12 @@
  * transition: getTransition;
  * transition: getTransition(slide, ease-in-quad);
  */
-@function getTransition($transitionName: "default", $transitionEasing: getTransitionEasing()) {
+@function getTransition($transitionName: 'default', $transitionEasing: getTransitionEasing()) {
     @if (map-has_key($settings-transitions, $transitionName)) {
-        @return map-get($settings-transitions, $transitionName) getTransitionEasing($transitionEasing);
+        @return map-get($settings-transitions, $transitionName)
+            getTransitionEasing($transitionEasing);
     } @else {
-        @return map-get($settings-transitions, "default") getTransitionEasing($transitionEasing);
+        @return map-get($settings-transitions, 'default') getTransitionEasing($transitionEasing);
     }
 }
 

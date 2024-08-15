@@ -48,7 +48,9 @@ export const getStaticProps: GetStaticProps = async () => {
                         },
                         title: item.title,
                         score: parseFloat(item.vote_average).toFixed(2),
-                        url: slugify(item.title).toLowerCase(),
+                        slug: `${item.id}-${slugify(item.title, {
+                            strict: true,
+                        }).toLowerCase()}`,
                         id: item.id,
                     };
                 }),
@@ -62,7 +64,9 @@ export const getStaticProps: GetStaticProps = async () => {
                         },
                         title: item.title,
                         score: parseFloat(item.vote_average).toFixed(2),
-                        url: slugify(item.title).toLowerCase(),
+                        slug: `${item.id}-${slugify(item.title, {
+                            strict: true,
+                        }).toLowerCase()}`,
                         id: item.id,
                     };
                 }),
@@ -76,7 +80,9 @@ export const getStaticProps: GetStaticProps = async () => {
                         },
                         title: item.title,
                         score: parseFloat(item.vote_average).toFixed(2),
-                        url: slugify(item.title).toLowerCase(),
+                        slug: `${item.id}-${slugify(item.title, {
+                            strict: true,
+                        }).toLowerCase()}`,
                         id: item.id,
                     };
                 }),
@@ -90,7 +96,9 @@ export const getStaticProps: GetStaticProps = async () => {
                         },
                         title: item.title,
                         score: parseFloat(item.vote_average).toFixed(2),
-                        url: slugify(item.title).toLowerCase(),
+                        slug: `${item.id}-${slugify(item.title, {
+                            strict: true,
+                        }).toLowerCase()}`,
                         id: item.id,
                     };
                 }),

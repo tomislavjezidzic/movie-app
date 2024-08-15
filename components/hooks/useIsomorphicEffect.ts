@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from 'react';
 
 /**
  * useIsomorphicEffect
@@ -7,7 +7,6 @@ import { useEffect, useLayoutEffect } from "react";
  * @param {Function} callback Callback function to be called on mount
  * @see https://rooks.vercel.app/docs/useIsomorphicEffect
  */
-const useIsomorphicEffect =
-    typeof window === "undefined" ? useEffect : useLayoutEffect;
+const useIsomorphicEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 export { useIsomorphicEffect };

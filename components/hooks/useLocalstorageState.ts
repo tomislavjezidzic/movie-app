@@ -1,14 +1,14 @@
-import type { Dispatch, SetStateAction } from "react";
-import { useMemo, useState, useEffect, useCallback, useRef } from "react";
-import { useFreshRef } from "./useFreshRef";
+import type { Dispatch, SetStateAction } from 'react';
+import { useMemo, useState, useEffect, useCallback, useRef } from 'react';
+import { useFreshRef } from './useFreshRef';
 
 // Gets value from localstorage
 function getValueFromLocalStorage(key: string) {
-    if (typeof localStorage === "undefined") {
+    if (typeof localStorage === 'undefined') {
         return null;
     }
 
-    const storedValue = localStorage.getItem(key) ?? "null";
+    const storedValue = localStorage.getItem(key) ?? 'null';
     try {
         return JSON.parse(storedValue);
     } catch (error) {
@@ -20,7 +20,7 @@ function getValueFromLocalStorage(key: string) {
 
 // Saves value to localstorage
 function saveValueToLocalStorage<S>(key: string, value: S) {
-    if (typeof localStorage === "undefined") {
+    if (typeof localStorage === 'undefined') {
         return null;
     }
 
@@ -38,19 +38,13 @@ function saveValueToLocalStorage<S>(key: string, value: S) {
 function initialize<S>(key: string, initialState: S | (() => S)) {
     const valueLoadedFromLocalStorage = getValueFromLocalStorage(key);
     if (valueLoadedFromLocalStorage === null) {
-        return typeof initialState === "function"
-            ? (initialState as () => S)()
-            : initialState;
+        return typeof initialState === 'function' ? (initialState as () => S)() : initialState;
     } else {
         return valueLoadedFromLocalStorage;
     }
 }
 
-type UseLocalstorageStateReturnValue<S> = [
-    S,
-    Dispatch<SetStateAction<S>>,
-    () => void
-];
+type UseLocalstorageStateReturnValue<S> = [S, Dispatch<SetStateAction<S>>, () => void];
 type BroadcastCustomEvent<S> = CustomEvent<{ newValue: S }>;
 /**
  * useLocalstorageState hook
@@ -91,7 +85,7 @@ function useLocalstorageState<S>(
             if (event.storageArea === localStorage && event.key === key) {
                 try {
                     isUpdateFromCrossDocumentListener.current = true;
-                    const newValue = JSON.parse(event.newValue ?? "null");
+                    const newValue = JSON.parse(event.newValue ?? 'null');
                     if (value !== newValue) {
                         setValue(newValue);
                     }
@@ -106,17 +100,14 @@ function useLocalstorageState<S>(
     // check for changes across documents
     useEffect(() => {
         // eslint-disable-next-line no-negated-condition
-        if (typeof window !== "undefined") {
-            window.addEventListener("storage", listenToCrossDocumentStorageEvents);
+        if (typeof window !== 'undefined') {
+            window.addEventListener('storage', listenToCrossDocumentStorageEvents);
 
             return () => {
-                window.removeEventListener(
-                    "storage",
-                    listenToCrossDocumentStorageEvents
-                );
+                window.removeEventListener('storage', listenToCrossDocumentStorageEvents);
             };
         } else {
-            console.warn("useLocalstorageState: window is undefined.");
+            console.warn('useLocalstorageState: window is undefined.');
 
             return () => {};
         }
@@ -140,11 +131,8 @@ function useLocalstorageState<S>(
     // check for changes within document
     useEffect(() => {
         // eslint-disable-next-line no-negated-condition
-        if (typeof document !== "undefined") {
-            document.addEventListener(
-                customEventTypeName,
-                listenToCustomEventWithinDocument
-            );
+        if (typeof document !== 'undefined') {
+            document.addEventListener(customEventTypeName, listenToCustomEventWithinDocument);
 
             return () => {
                 document.removeEventListener(
@@ -153,7 +141,7 @@ function useLocalstorageState<S>(
                 );
             };
         } else {
-            console.warn("[useLocalstorageState] document is undefined.");
+            console.warn('[useLocalstorageState] document is undefined.');
 
             return () => {};
         }
@@ -162,14 +150,13 @@ function useLocalstorageState<S>(
     const broadcastValueWithinDocument = useCallback(
         (newValue: S) => {
             // eslint-disable-next-line no-negated-condition
-            if (typeof document !== "undefined") {
-                const event: BroadcastCustomEvent<S> = new CustomEvent(
-                    customEventTypeName,
-                    { detail: { newValue } }
-                );
+            if (typeof document !== 'undefined') {
+                const event: BroadcastCustomEvent<S> = new CustomEvent(customEventTypeName, {
+                    detail: { newValue },
+                });
                 document.dispatchEvent(event);
             } else {
-                console.warn("[useLocalstorageState] document is undefined.");
+                console.warn('[useLocalstorageState] document is undefined.');
             }
         },
         [customEventTypeName]
@@ -180,7 +167,7 @@ function useLocalstorageState<S>(
     const set = useCallback(
         (newValue: SetStateAction<S>) => {
             const resolvedNewValue =
-                typeof newValue === "function"
+                typeof newValue === 'function'
                     ? (newValue as (prevState: S) => S)(currentValue.current)
                     : newValue;
             isUpdateFromCrossDocumentListener.current = false;

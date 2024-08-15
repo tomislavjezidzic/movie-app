@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import {getMostWatched} from '@libs/movieClient';
+import { getMostWatched } from '@libs/movieClient';
 import slugify from 'slugify';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -17,9 +17,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 },
                 title: item.title,
                 score: parseFloat(item.vote_average).toFixed(2),
-                url: slugify(item.title, {
+                slug: `${item.id}-${slugify(item.title, {
                     strict: true,
-                }).toLowerCase(),
+                }).toLowerCase()}`,
                 id: item.id,
             };
         });

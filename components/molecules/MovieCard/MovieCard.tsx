@@ -13,11 +13,11 @@ export interface MovieCardProps {
     };
     title?: string;
     score?: string;
-    url?: string;
+    slug?: string;
     id?: string;
 }
 
-const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
+const MovieCard = ({ image, slug, score, title, id }: MovieCardProps) => {
     const [isFavorited, setIsFavorited] = useState(false);
     const [movieIds, setMovieIds] = useLocalstorageState('favorite_movies', '');
 
@@ -39,7 +39,7 @@ const MovieCard = ({ image, url, score, title, id }: MovieCardProps) => {
 
     return (
         <div className={styles.card}>
-            <NextLink href={url} className={styles.link}/>
+            <NextLink href={`movie/${slug}`} className={styles.link} />
             {image && (
                 <div className={styles.imageContainer}>
                     <div className={styles.scoreContainer}>

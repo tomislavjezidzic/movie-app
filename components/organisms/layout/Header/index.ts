@@ -1,5 +1,3 @@
-import Header, { MovieListProps } from './Header';
-
-export type { MovieListProps };
+import Header from './Header';
 
 export default Header;

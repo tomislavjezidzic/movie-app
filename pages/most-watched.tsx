@@ -68,9 +68,9 @@ export const getStaticProps: GetStaticProps = async () => {
                     },
                     title: item.title,
                     score: parseFloat(item.vote_average).toFixed(2),
-                    url: slugify(item.title, {
+                    slug: `${item.id}-${slugify(item.title, {
                         strict: true,
-                    }).toLowerCase(),
+                    }).toLowerCase()}`,
                     id: item.id,
                 };
             }),

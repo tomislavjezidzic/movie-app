@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 /**
  * Generate css variables for spacing if use-css-var is true
@@ -35,7 +35,10 @@
             @each $size, $values in $settings-spacings {
                 #{$css-variable-prefix}#{$size}: #{fluidSizingXXL(
                         map-deep-get($settings-spacings, $size, $breakpoint-xl),
-                        math.div(map-deep-get($settings-spacings, $size, $breakpoint-xl), $breakpoint-xxl) *
+                        math.div(
+                                map-deep-get($settings-spacings, $size, $breakpoint-xl),
+                                $breakpoint-xxl
+                            ) *
                             $breakpoint-xxxl *
                             $big-viewport-coefficient
                     )};
@@ -43,7 +46,10 @@
             @each $size, $values in $settings-typography {
                 #{$css-variable-prefix}#{$size}: #{fluidSizingXXL(
                         map-deep-get($settings-typography, $size, $breakpoint-xl),
-                        math.div(map-deep-get($settings-typography, $size, $breakpoint-xl), $breakpoint-xxl) *
+                        math.div(
+                                map-deep-get($settings-typography, $size, $breakpoint-xl),
+                                $breakpoint-xxl
+                            ) *
                             $breakpoint-xxxl *
                             $big-viewport-coefficient
                     )};

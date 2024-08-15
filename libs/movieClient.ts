@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as console from 'node:console';
 
 const axiosClient = axios.create({
     baseURL: process.env.TMDB_BASE_URL_ENDPOINT,
@@ -26,4 +27,12 @@ export async function getTopRated() {
     return await axiosClient.get(
         `/movie/top_rated?language=en-US&page=1&api_key=${process.env.TMDB_API_KEY}`
     );
+}
+
+export async function getMovie(movieId) {
+    return await axiosClient
+        .get(`movie/${movieId}?language=en-US&api_key=${process.env.TMDB_API_KEY}`)
+        .catch(error => {
+            console.log('Error: ', error);
+        });
 }

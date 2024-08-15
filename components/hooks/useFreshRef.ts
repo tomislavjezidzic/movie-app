@@ -1,6 +1,6 @@
-import type { MutableRefObject } from "react";
-import { useEffect, useRef } from "react";
-import { useIsomorphicEffect } from "./useIsomorphicEffect";
+import type { MutableRefObject } from 'react';
+import { useEffect, useRef } from 'react';
+import { useIsomorphicEffect } from './useIsomorphicEffect';
 
 /**
  * useFreshRef
@@ -12,10 +12,7 @@ import { useIsomorphicEffect } from "./useIsomorphicEffect";
  * @returns A ref containing the fresh value
  * @see https://rooks.vercel.app/docs/useFreshRef
  */
-function useFreshRef<T>(
-    value: T,
-    preferLayoutEffect = false
-): MutableRefObject<T> {
+function useFreshRef<T>(value: T, preferLayoutEffect = false): MutableRefObject<T> {
     const useEffectToUse = preferLayoutEffect ? useIsomorphicEffect : useEffect;
     const ref = useRef(value);
     useEffectToUse(() => {

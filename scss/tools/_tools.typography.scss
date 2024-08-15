@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 /**
  * Font face mixin
@@ -17,10 +17,16 @@
  *  $font-style: italic
  * );
  */
-@mixin font-face($font-name, $font-filename: $font-name, $version: 1, $font-weight: normal, $font-style: normal) {
+@mixin font-face(
+    $font-name,
+    $font-filename: $font-name,
+    $version: 1,
+    $font-weight: normal,
+    $font-style: normal
+) {
     @font-face {
-        font-family: "#{$font-name}";
-        src: url("../fonts/#{$font-filename}.woff2?#{$version}") format("woff2");
+        font-family: '#{$font-name}';
+        src: url('../fonts/#{$font-filename}.woff2?#{$version}') format('woff2');
         font-weight: $font-weight;
         font-style: $font-style;
         font-display: swap;
