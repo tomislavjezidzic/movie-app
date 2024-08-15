@@ -27,6 +27,7 @@ const MovieCard = ({ image, slug, score, title, id }: MovieCardProps) => {
 
     const handleClick = useCallback(() => {
         const storageIds = movieIds !== null ? JSON.parse(movieIds) : [];
+
         if (storageIds.includes(id)) {
             storageIds.splice(storageIds.indexOf(id), 1);
         } else {
