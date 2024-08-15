@@ -40,8 +40,7 @@ const MovieCard = ({ image, slug, score, title, id }: MovieCardProps) => {
 
     return (
         <div className={styles.card}>
-            {/* added prefetch={false} because of Netlify errors */}
-            <NextLink href={`movie/${slug}`} className={styles.link} prefetch={false} />
+            <NextLink href={`movie/${slug}`} className={styles.link} />
             {image && (
                 <div className={styles.imageContainer}>
                     <div className={styles.scoreContainer}>
