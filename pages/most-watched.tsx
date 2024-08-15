@@ -6,8 +6,8 @@ import MovieList from '@organisms/MovieList';
 import Header from '@organisms/layout/Header';
 import Footer from '@organisms/layout/Footer';
 import { useCallback, useState } from 'react';
-import getMostWatched from '@libs/movieClient';
 import { MovieCardPropsResponse } from 'types/interfaces';
+import { getMostWatched } from '@libs/movieClient';
 
 const MostWatchedPage = (initialData: { results: any }) => {
     const [page, setPage] = useState(2);
@@ -35,9 +35,9 @@ const MostWatchedPage = (initialData: { results: any }) => {
         <>
             <Header title="Most Watched" />
 
-            <button onClick={() => handleClick()}>load more</button>
-
             <MovieList items={data} />
+
+            <button onClick={() => handleClick()}>load more</button>
 
             <Footer />
         </>
