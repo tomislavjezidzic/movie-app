@@ -1,21 +1,27 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getMovie } from '@libs/movieClient';
 import Image from 'next/image';
-const SingleMoviePage = params => {
+
+export interface SingleMoviePageProps {
+    cover_image: string;
+    poster_image: string;
+    title: string;
+    score: string;
+}
+
+const SingleMoviePage = ({ cover_image, poster_image, title, score }: SingleMoviePageProps) => {
     return (
         <>
-            <Image src={params.cover_image} alt={params.title} width={1400} height={600} />
-            <Image src={params.poster_image} alt={params.title} width={200} height={300} />
+            <Image src={cover_image} alt={title} width={1400} height={600} />
+            <Image src={poster_image} alt={title} width={200} height={300} />
             <h1>
-                {params.title} - {params.score}
+                {title} - {score}
             </h1>
         </>
     );
 };
 
-// @ts-ignore
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-    // @ts-ignore
+export const getStaticProps = async ({ params }) => {
     const movieId = params?.slug?.split('-');
     const responseData = await getMovie(movieId);
 
