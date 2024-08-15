@@ -26,7 +26,7 @@ const MovieCard = ({ image, slug, score, title, id }: MovieCardProps) => {
     }, [isFavorited, movieIds]);
 
     const handleClick = useCallback(() => {
-        const storageIds = movieIds !== null ? JSON.parse(movieIds) : [];
+        const storageIds = movieIds !== null && movieIds !== '' ? JSON.parse(movieIds) : [];
 
         if (storageIds.includes(id)) {
             storageIds.splice(storageIds.indexOf(id), 1);
