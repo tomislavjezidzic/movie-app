@@ -3,10 +3,10 @@ import Header from '@organisms/layout/Header';
 import Footer from '@organisms/layout/Footer';
 import MoviesScrollableRow from '@organisms/MoviesScrollableRow';
 import MoviesRow from '@organisms/MoviesRow';
-import axios from 'axios';
 import { MovieCardProps } from '@molecules/MovieCard';
 import slugify from 'slugify';
 import { getMoviesByGenre, getNewest, getTopRated } from '@libs/movieClient';
+import { MovieCardPropsResponse } from 'types/interfaces';
 
 const IndexPage = (data: { newest: any; popularAnimation: any; popularAction: any; top: any }) => {
     return (
@@ -35,18 +35,12 @@ export const getStaticProps: GetStaticProps = async () => {
 
     const topResponse = await getTopRated();
 
-    type GetDataResponse = {
-        poster_path: string;
-        title: string;
-        vote_average: string;
-        id: string;
-    };
-
     return {
         props: {
+            title: 'Movie App Homepage',
             newest: newestResponse?.data?.results
                 ?.slice(0, 8)
-                .map((item: GetDataResponse): MovieCardProps => {
+                .map((item: MovieCardPropsResponse): MovieCardProps => {
                     return {
                         image: {
                             src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w400${item.poster_path}`,
@@ -60,7 +54,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 }),
             popularAction: popularActionResponse?.data?.results
                 ?.slice(0, 10)
-                .map((item: GetDataResponse): MovieCardProps => {
+                .map((item: MovieCardPropsResponse): MovieCardProps => {
                     return {
                         image: {
                             src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w200${item.poster_path}`,
@@ -74,7 +68,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 }),
             popularAnimation: popularAnimationResponse?.data?.results
                 ?.slice(0, 10)
-                .map((item: GetDataResponse): MovieCardProps => {
+                .map((item: MovieCardPropsResponse): MovieCardProps => {
                     return {
                         image: {
                             src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w200${item.poster_path}`,
@@ -88,7 +82,7 @@ export const getStaticProps: GetStaticProps = async () => {
                 }),
             top: topResponse?.data?.results
                 ?.slice(0, 3)
-                .map((item: GetDataResponse): MovieCardProps => {
+                .map((item: MovieCardPropsResponse): MovieCardProps => {
                     return {
                         image: {
                             src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w400${item.poster_path}`,

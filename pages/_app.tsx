@@ -23,10 +23,12 @@ const App = ({ Component, pageProps }: AppProps) => {
         setGlobalCSSVariable('--window-height', `${window.innerHeight}px`);
     });
 
+    console.log(pageProps);
+
     return (
         <>
             <Fonts />
-            <SeoHead />
+            <SeoHead title={pageProps.title} />
             <main className="o-page">
                 <Component {...pageProps} />
             </main>

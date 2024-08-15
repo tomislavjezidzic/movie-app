@@ -1,11 +1,10 @@
-'use client';
 import { GetStaticProps } from 'next';
 import { MovieCardProps } from '@molecules/MovieCard';
 import slugify from 'slugify';
 import MovieList from '@organisms/MovieList';
 import Header from '@organisms/layout/Header';
 import Footer from '@organisms/layout/Footer';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { MovieCardPropsResponse } from 'types/interfaces';
 import { getMostWatched } from '@libs/movieClient';
 import { useIntersectionObserverRef } from '@hooks/useIntersectionObserverRef';
@@ -60,6 +59,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
     return {
         props: {
+            title: 'Most Watched',
             results: data?.data?.results?.map((item: MovieCardPropsResponse): MovieCardProps => {
                 return {
                     image: {
