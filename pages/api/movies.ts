@@ -1,13 +1,24 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getMostWatched } from '@libs/movieClient';
+import { getMostWatched, getQueriedMovies } from '@libs/movieClient';
 import slugify from 'slugify';
+import { all } from 'axios';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         const page = JSON.parse(req.body).page;
-        const data = await getMostWatched(page);
+        const searchQuery = JSON.parse(req.body).searchQuery;
+        let results = [];
 
-        const results = data?.data?.results || '';
+        if (page) {
+            const data = await getMostWatched(page);
+
+            results = data?.data?.results || [];
+        } else if (searchQuery) {
+            const data = await getQueriedMovies(searchQuery);
+            const allResults = data?.data?.results || [];
+
+            results = allResults?.slice(0, 5) || [];
+        }
 
         const remappedResults = results.map((item: any) => {
             return {

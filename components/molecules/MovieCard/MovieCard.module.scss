@@ -83,3 +83,18 @@
     height: 0;
     padding-top: percentage(3, 2);
 }
+
+.imageOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--mango);
+    opacity: 0;
+    transition: opacity 0.3s 0.2s;
+
+    &.isVisible {
+        opacity: 1;
+    }
+}

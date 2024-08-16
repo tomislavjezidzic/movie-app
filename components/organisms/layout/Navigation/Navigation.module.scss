@@ -9,6 +9,12 @@
     z-index: getZindex(navigation);
 }
 
+.inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .navigation {
     &List {
         display: inline-flex;
@@ -32,7 +38,7 @@
             transform: translateX(-101%);
         }
 
-        &.is-active {
+        &.isActive {
             pointer-events: none;
             opacity: 0.5;
         }
@@ -42,4 +48,35 @@
             }
         }
     }
+}
+
+.bottom {
+    background-color: var(--secondary-color);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+
+    &.isVisible {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.movieList {
+    width: 100%;
+    padding-top: var(--s-15);
+    padding-bottom: var(--s-15);
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(var(--s-10) * -1);
+    margin-right: calc(var(--s-10) * -1);
+}
+
+.movieItem {
+    width: percentage(1, 5);
+    padding: var(--s-10);
 }

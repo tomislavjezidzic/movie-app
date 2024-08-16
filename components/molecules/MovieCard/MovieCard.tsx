@@ -19,6 +19,7 @@ export interface MovieCardProps {
 }
 
 const MovieCard = ({ image, slug, score, title, id, lazyLoad = true }: MovieCardProps) => {
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [isFavorited, setIsFavorited] = useState(false);
     const [movieIds, setMovieIds] = useLocalstorageState('favorite_movies', '');
 
@@ -61,7 +62,14 @@ const MovieCard = ({ image, slug, score, title, id, lazyLoad = true }: MovieCard
                         height={300}
                         className={styles.image}
                         priority={!lazyLoad}
+                        onLoadingComplete={() => setIsImageLoaded(true)}
                     />
+
+                    <i
+                        className={cn(styles.imageOverlay, {
+                            [styles.isVisible]: !isImageLoaded,
+                        })}
+                    ></i>
                 </div>
             )}
 
