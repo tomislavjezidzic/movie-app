@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths } from 'next';
 import { getMovie } from '@libs/movieClient';
 import Image from 'next/image';
 

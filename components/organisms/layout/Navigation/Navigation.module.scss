@@ -1,0 +1,45 @@
+.main {
+    padding-top: var(--s-15);
+    padding-bottom: var(--s-15);
+    background-color: var(--secondary-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: getZindex(navigation);
+}
+
+.navigation {
+    &List {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--s-15);
+    }
+
+    &Item {
+        position: relative;
+        overflow: hidden;
+
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--tertiary-color);
+            transition: transform 0.3s;
+            transform: translateX(-101%);
+        }
+
+        &.is-active {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        @include hover {
+            &:after {
+                transform: translateX(0);
+            }
+        }
+    }
+}

@@ -1,13 +1,10 @@
 import { GetStaticProps } from 'next';
 import Header from '@organisms/layout/Header';
-import Footer from '@organisms/layout/Footer';
 
 const IndexPage = () => {
     return (
         <>
             <Header title="404" centered />
-
-            <Footer />
         </>
     );
 };

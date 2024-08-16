@@ -3,7 +3,6 @@ import { MovieCardProps } from '@molecules/MovieCard';
 import slugify from 'slugify';
 import MovieList from '@organisms/MovieList';
 import Header from '@organisms/layout/Header';
-import Footer from '@organisms/layout/Footer';
 import { useCallback, useState } from 'react';
 import { MovieCardPropsResponse } from 'types/interfaces';
 import { getMostWatched } from '@libs/movieClient';
@@ -48,8 +47,6 @@ const MostWatchedPage = (initialData: { results: any }) => {
             <MovieList items={data} isLoading={isLoading} />
 
             <div ref={loadMoreRef} />
-
-            <Footer />
         </>
     );
 };

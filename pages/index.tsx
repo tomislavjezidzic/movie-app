@@ -1,6 +1,5 @@
 import { GetStaticProps } from 'next';
 import Header from '@organisms/layout/Header';
-import Footer from '@organisms/layout/Footer';
 import MoviesScrollableRow from '@organisms/MoviesScrollableRow';
 import MoviesRow from '@organisms/MoviesRow';
 import { MovieCardProps } from '@molecules/MovieCard';
@@ -20,8 +19,6 @@ const IndexPage = (data: { newest: any; popularAnimation: any; popularAction: an
             <MoviesScrollableRow title="Popular Animation" items={data.popularAnimation} />
 
             <MoviesScrollableRow title="Popular Action" items={data.popularAction} />
-
-            <Footer />
         </>
     );
 };

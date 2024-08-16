@@ -33,6 +33,6 @@ export async function getMovie(movieId) {
     return await axiosClient
         .get(`movie/${movieId}?language=en-US&api_key=${process.env.TMDB_API_KEY}`)
         .catch(error => {
-            console.log('Error: ', error);
+            console.log(error);
         });
 }

@@ -5,6 +5,8 @@ import { setGlobalCSSVariable } from '@libs/helpers';
 import Fonts from '@organisms/layout/Fonts';
 import SeoHead from '@organisms/layout/SeoHead';
 import 'scss/style.scss';
+import Footer from '@organisms/layout/Footer';
+import Navigation from '@organisms/layout/Navigation';
 
 type AppProps<P = any> = {
     pageProps: P;
@@ -28,7 +30,11 @@ const App = ({ Component, pageProps }: AppProps) => {
             <Fonts />
             <SeoHead title={pageProps.title} />
             <main className="o-page">
+                <Navigation />
+
                 <Component {...pageProps} />
+
+                <Footer />
             </main>
         </>
     );
