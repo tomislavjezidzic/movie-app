@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getMostWatched, getQueriedMovies } from '@libs/movieClient';
 import slugify from 'slugify';
-import { all } from 'axios';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
