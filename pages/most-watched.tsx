@@ -7,6 +7,7 @@ import { useCallback, useState } from 'react';
 import { MovieCardPropsResponse } from 'types/interfaces';
 import { getMostWatched } from '@libs/movieClient';
 import { useIntersectionObserverRef } from '@hooks/useIntersectionObserverRef';
+import { AxiosResponse } from 'axios';
 
 const MostWatchedPage = (initialData: { results: any }) => {
     const [page, setPage] = useState(2);
@@ -57,20 +58,22 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
         props: {
             title: 'Most Watched',
-            results: data?.data?.results?.map((item: MovieCardPropsResponse): MovieCardProps => {
-                return {
-                    image: {
-                        src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w300${item.poster_path}`,
-                        alt: item.title,
-                    },
-                    title: item.title,
-                    score: parseFloat(item.vote_average).toFixed(2),
-                    slug: `${item.id}-${slugify(item.title, {
-                        strict: true,
-                    }).toLowerCase()}`,
-                    id: item.id,
-                };
-            }),
+            results: (data as AxiosResponse<any, any>)?.data?.results?.map(
+                (item: MovieCardPropsResponse): MovieCardProps => {
+                    return {
+                        image: {
+                            src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w300${item.poster_path}`,
+                            alt: item.title,
+                        },
+                        title: item.title,
+                        score: parseFloat(item.vote_average).toFixed(2),
+                        slug: `${item.id}-${slugify(item.title, {
+                            strict: true,
+                        }).toLowerCase()}`,
+                        id: item.id,
+                    };
+                }
+            ),
         },
         revalidate: 3600,
     };

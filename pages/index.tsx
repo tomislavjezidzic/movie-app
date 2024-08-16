@@ -6,6 +6,7 @@ import { MovieCardProps } from '@molecules/MovieCard';
 import slugify from 'slugify';
 import { getMoviesByGenre, getNewest, getTopRated } from '@libs/movieClient';
 import { MovieCardPropsResponse } from 'types/interfaces';
+import { AxiosResponse } from 'axios';
 
 const IndexPage = (data: { newest: any; popularAnimation: any; popularAction: any; top: any }) => {
     return (
@@ -35,7 +36,7 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
         props: {
             title: 'Movie App Homepage',
-            newest: newestResponse?.data?.results
+            newest: (newestResponse as AxiosResponse<any, any>)?.data?.results
                 ?.slice(0, 8)
                 .map((item: MovieCardPropsResponse): MovieCardProps => {
                     return {
@@ -51,7 +52,7 @@ export const getStaticProps: GetStaticProps = async () => {
                         id: item.id,
                     };
                 }),
-            popularAction: popularActionResponse?.data?.results
+            popularAction: (popularActionResponse as AxiosResponse<any, any>)?.data?.results
                 ?.slice(0, 10)
                 .map((item: MovieCardPropsResponse): MovieCardProps => {
                     return {
@@ -67,7 +68,7 @@ export const getStaticProps: GetStaticProps = async () => {
                         id: item.id,
                     };
                 }),
-            popularAnimation: popularAnimationResponse?.data?.results
+            popularAnimation: (popularAnimationResponse as AxiosResponse<any, any>)?.data?.results
                 ?.slice(0, 10)
                 .map((item: MovieCardPropsResponse): MovieCardProps => {
                     return {
@@ -83,7 +84,7 @@ export const getStaticProps: GetStaticProps = async () => {
                         id: item.id,
                     };
                 }),
-            top: topResponse?.data?.results
+            top: (topResponse as AxiosResponse<any, any>)?.data?.results
                 ?.slice(0, 3)
                 .map((item: MovieCardPropsResponse): MovieCardProps => {
                     return {

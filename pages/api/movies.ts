@@ -12,12 +12,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (page) {
             const data = await getMostWatched(page);
 
-            results = data?.data?.results || [];
+            if (data) {
+                results = data?.data?.results || [];
+            } else {
+                results = [];
+            }
         } else if (searchQuery) {
             const data = await getQueriedMovies(searchQuery);
-            const allResults = data?.data?.results || [];
+            if (data) {
+                const allResults = data?.data?.results || [];
 
-            results = allResults?.slice(0, 5) || [];
+                results = allResults?.slice(0, 5) || [];
+            } else {
+                results = [];
+            }
         }
 
         const remappedResults = results.map((item: any) => {

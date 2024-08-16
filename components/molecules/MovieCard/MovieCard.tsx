@@ -62,7 +62,7 @@ const MovieCard = ({ image, slug, score, title, id, lazyLoad = true }: MovieCard
                         height={300}
                         className={styles.image}
                         priority={!lazyLoad}
-                        onLoadingComplete={() => setIsImageLoaded(true)}
+                        onLoad={() => setIsImageLoaded(true)}
                     />
 
                     <i
