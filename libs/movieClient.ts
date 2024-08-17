@@ -36,7 +36,7 @@ export async function getTopRated() {
 export async function getMovie(movieId: number) {
     return await axiosClient
         .get(
-            `movie/${movieId}?append_to_response=credits&language=en-US&with_cast=true&api_key=${process.env.TMDB_API_KEY}`
+            `/movie/${movieId}?append_to_response=credits&language=en-US&with_cast=true&api_key=${process.env.TMDB_API_KEY}`
         )
         .catch(error => {
             console.log(error);
@@ -46,7 +46,7 @@ export async function getMovie(movieId: number) {
 export async function getQueriedMovies(searchQuery: string) {
     return await axiosClient
         .get(
-            `search/movie?query=${searchQuery}&include_adult=false&language=en-US&api_key=${process.env.TMDB_API_KEY}`
+            `/search/movie?query=${searchQuery}&include_adult=false&language=en-US&api_key=${process.env.TMDB_API_KEY}`
         )
         .catch(error => {
             console.log(error);
