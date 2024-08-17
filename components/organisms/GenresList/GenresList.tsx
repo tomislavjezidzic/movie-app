@@ -21,14 +21,25 @@ const GenresList = ({ genres, setGenres }: GenresListProps) => {
     );
 
     return (
-        <section className={cn(styles.wrapper, 'o-section', 'u-b0')}>
-            {GENRES.genres.map((genre, key) => (
-                <label key={`genres-item-${key}`}>
-                    <span>{genre.name}</span>
+        <section className={cn(styles.main, 'o-section', 'u-b2')}>
+            <div className="o-container">
+                <div className={styles.inner}>
+                    {GENRES.genres.map((genre, key) => (
+                        <div key={`genres-item-${key}`} className={styles.item}>
+                            <input
+                                type="checkbox"
+                                value={genre.id}
+                                id={genre.id.toString()}
+                                onChange={ev => handleChange(ev)}
+                            />
 
-                    <input type="checkbox" value={genre.id} onChange={ev => handleChange(ev)} />
-                </label>
-            ))}
+                            <label className={styles.label} htmlFor={genre.id.toString()}>
+                                <span>{genre.name}</span>
+                            </label>
+                        </div>
+                    ))}
+                </div>
+            </div>
         </section>
     );
 };
