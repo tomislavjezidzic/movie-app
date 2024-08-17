@@ -4,7 +4,7 @@ import MoviesScrollableRow from '@organisms/MoviesScrollableRow';
 import MoviesRow from '@organisms/MoviesRow';
 import { MovieCardProps } from '@molecules/MovieCard';
 import slugify from 'slugify';
-import { getMoviesByGenre, getNewest, getTopRated } from '@libs/movieClient';
+import { getMostWatched, getNewest, getTopRated } from '@libs/movieClient';
 import { MovieCardPropsResponse } from 'types/interfaces';
 import { AxiosResponse } from 'axios';
 
@@ -27,9 +27,9 @@ const IndexPage = (data: { newest: any; popularAnimation: any; popularAction: an
 export const getStaticProps: GetStaticProps = async () => {
     const newestResponse = await getNewest();
 
-    const popularActionResponse = await getMoviesByGenre(28);
+    const popularActionResponse = await getMostWatched([28], 1);
 
-    const popularAnimationResponse = await getMoviesByGenre(16);
+    const popularAnimationResponse = await getMostWatched([16], 1);
 
     const topResponse = await getTopRated();
 

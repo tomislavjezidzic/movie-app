@@ -6,13 +6,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         const page = JSON.parse(req.body).page;
         const searchQuery = JSON.parse(req.body).searchQuery;
+        const genres = JSON.parse(req.body).genres;
         let results = [];
 
-        if (page) {
-            const data = await getMostWatched(page);
+        if (genres) {
+            const data = await getMostWatched(genres, page ? page : 1);
+            if (data) {
+                results = data?.data?.results;
+            } else {
+                results = [];
+            }
+        } else if (page) {
+            const data = await getMostWatched(null, page);
 
             if (data) {
-                results = data?.data?.results || [];
+                results = data?.data?.results;
             } else {
                 results = [];
             }
@@ -21,7 +29,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             if (data) {
                 const allResults = data?.data?.results || [];
 
-                results = allResults?.slice(0, 5) || [];
+                results = allResults?.slice(0, 5);
             } else {
                 results = [];
             }
