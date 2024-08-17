@@ -23,8 +23,8 @@ const MovieCard = ({ image, slug, score, title, id, lazyLoad = true }: MovieCard
     return (
         <div className={styles.card}>
             {/* using a tag because of Netlify errors & static page doesn't exist */}
-            {/*<NextLink href={`movie/${slug}`} className={styles.link} />*/}
-            <a href={`movie/${slug}`} className={styles.link} />
+            {/*<NextLink href={`/movie/${slug}`} className={styles.link} />*/}
+            <a href={`/movie/${slug}`} className={styles.link} />
             {image && (
                 <div className={styles.imageContainer}>
                     <div className={styles.scoreContainer}>
