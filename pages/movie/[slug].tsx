@@ -15,6 +15,7 @@ export interface SingleMoviePageProps {
     duration: number;
     country: string[];
     cast: string[];
+    id: string;
 }
 
 const SingleMoviePage = ({
@@ -27,6 +28,7 @@ const SingleMoviePage = ({
     duration,
     country,
     cast,
+    id
 }: SingleMoviePageProps) => {
     return (
         <>
@@ -35,6 +37,7 @@ const SingleMoviePage = ({
                 coverImage={coverImage}
                 title={title}
                 score={score}
+                id={id}
             />
 
             <Marquee content={genres} />
@@ -66,6 +69,7 @@ export const getStaticProps = async ({ params }) => {
                 genres: data.genres.map((item: { name: string }) => item.name),
                 duration: data.runtime,
                 country: data.origin_country,
+                id: data.id,
                 cast: data.credits.cast.map((item: { name: string }) => item.name),
             },
             revalidate: 3600,

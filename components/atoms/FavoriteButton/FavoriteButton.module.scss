@@ -1,0 +1,14 @@
+.button {
+    @include button-reset;
+    display: block;
+    color: var(--red);
+    font-size: 1.8em;
+
+    &.isLarge {
+        font-size: 2.5em;
+
+        path {
+            stroke-width: 12;
+        }
+    }
+}

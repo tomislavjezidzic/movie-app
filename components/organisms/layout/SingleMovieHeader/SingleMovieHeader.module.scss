@@ -28,9 +28,20 @@
     }
 }
 
+.favoriteButton {
+    position: absolute;
+    top: var(--s-30);
+    right: 0;
+
+    @include mq(sm) {
+        position: static;
+    }
+}
+
 .content {
     position: relative;
     padding-top: var(--s-30);
+    padding-right: var(--s-60);
     @include fluidValue('padding-left', null, 260px);
 
     @include mq(md) {

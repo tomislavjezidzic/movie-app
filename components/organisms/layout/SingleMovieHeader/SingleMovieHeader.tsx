@@ -2,15 +2,23 @@ import styles from './SingleMovieHeader.module.scss';
 import cn from 'classnames';
 import Image from 'next/image';
 import Icon from '@atoms/Icons';
+import FavoriteButton from '@atoms/FavoriteButton';
 
 export interface SingleMovieHeaderProps {
     posterImage: string;
     coverImage: string;
     title: string;
     score: string;
+    id: string;
 }
 
-const SingleMovieHeader = ({ title, posterImage, coverImage, score }: SingleMovieHeaderProps) => (
+const SingleMovieHeader = ({
+    id,
+    title,
+    posterImage,
+    coverImage,
+    score,
+}: SingleMovieHeaderProps) => (
     <header className={cn(styles.main, 'o-header')}>
         <div className={styles.posterImage}>
             <Image
@@ -43,6 +51,10 @@ const SingleMovieHeader = ({ title, posterImage, coverImage, score }: SingleMovi
                             {score}
                         </span>
                     </p>
+
+                    <div className={styles.favoriteButton}>
+                        <FavoriteButton id={id} large />
+                    </div>
                 </div>
             </div>
         </div>

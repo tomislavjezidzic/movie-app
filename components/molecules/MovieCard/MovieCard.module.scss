@@ -2,19 +2,15 @@
     position: relative;
 }
 
-.favoriteBtn {
-    @include button-reset;
+.title {
+    margin-bottom: var(--s-5);
+}
+
+.favoriteButton {
     position: absolute;
     top: 0;
     right: 0;
-    display: block;
     z-index: 2;
-    color: var(--red);
-    font-size: 1.8em;
-}
-
-.title {
-    margin-bottom: var(--s-5);
 }
 
 .score {
