@@ -1,0 +1,73 @@
+.main {
+    padding-top: var(--s-60);
+    padding-bottom: var(--s-150);
+}
+
+.contentBlock {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: var(--s-60);
+
+    &:last-child {
+        padding-bottom: 0;
+    }
+
+    @include mq(md) {
+        display: block;
+    }
+}
+
+.title {
+    @include fluidValue('width', null, 200px);
+    padding-bottom: var(--s-15);
+    padding-right: var(--s-15);
+
+    @include mq(md) {
+        padding-right: 0;
+    }
+}
+
+.content {
+    flex: 1;
+    padding-top: 0.6rem;
+    opacity: 0.8;
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    li {
+        padding-right: var(--s-15);
+        display: flex;
+        align-items: center;
+
+        &:after {
+            content: '';
+            display: inline-block;
+            border-radius: 100px;
+            background-color: var(--mango);
+            margin-left: var(--s-15);
+            @include fluidValue('width', null, 4px);
+            @include fluidValue('height', null, 4px);
+        }
+
+        &:last-child {
+            padding-right: 0;
+
+            &:after {
+                display: none;
+            }
+        }
+    }
+
+    @include fluidValue('max-width', null, 700px);
+
+    @include mq(lg) {
+        padding-top: 0.3rem;
+    }
+
+    @include mq(md) {
+        padding-top: 0;
+    }
+}

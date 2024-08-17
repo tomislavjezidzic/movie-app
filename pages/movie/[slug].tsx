@@ -2,6 +2,8 @@ import { GetStaticPaths } from 'next';
 import { getMovie } from '@libs/movieClient';
 import Image from 'next/image';
 import SingleMovieHeader from '@organisms/layout/SingleMovieHeader';
+import SingleMovieBody from '@organisms/SingleMovieBody';
+import Marquee from '@organisms/Marquee';
 
 export interface SingleMoviePageProps {
     coverImage: string;
@@ -34,27 +36,15 @@ const SingleMoviePage = ({
                 title={title}
                 score={score}
             />
-            <p>{description}</p>
 
-            <ul>
-                {genres.map((genre, index) => (
-                    <li key={index}>{genre}</li>
-                ))}
-            </ul>
+            <Marquee content={genres} />
 
-            <p>duration: {duration} min</p>
-
-            <ul>
-                {country.map((country, index) => (
-                    <li key={index}>{country}</li>
-                ))}
-            </ul>
-
-            <ul>
-                {cast.map((cast, index) => (
-                    <li key={index}>{cast}</li>
-                ))}
-            </ul>
+            <SingleMovieBody
+                description={description}
+                duration={duration}
+                country={country}
+                cast={cast}
+            />
         </>
     );
 };
