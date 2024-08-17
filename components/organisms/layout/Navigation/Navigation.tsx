@@ -2,17 +2,25 @@ import styles from './Navigation.module.scss';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import cn from 'classnames';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import MovieCard, { MovieCardProps } from '@molecules/MovieCard';
 import { useRouter } from 'next/router';
 
 export interface NavigationProps {}
 
 const Navigation = ({}: NavigationProps) => {
+    const navBar = useRef(null);
     const router = useRouter();
     const pathname = usePathname();
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+
+    useEffect(() => {
+        if (navBar.current) {
+            const navBarHeight = navBar.current.getBoundingClientRect().height;
+            document.documentElement.style.setProperty('--navigation-height', navBarHeight + 'px');
+        }
+    }, [navBar]);
 
     useEffect(() => {
         const startHandler = () => {
@@ -58,7 +66,7 @@ const Navigation = ({}: NavigationProps) => {
 
     return (
         <div className={styles.main}>
-            <div className={styles.top}>
+            <div className={styles.top} ref={navBar}>
                 <div className="o-container">
                     <div className={styles.inner}>
                         <nav className={styles.navigation}>

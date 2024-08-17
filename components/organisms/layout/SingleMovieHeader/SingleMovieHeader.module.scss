@@ -1,0 +1,77 @@
+.main {
+    padding-bottom: var(--s-60);
+}
+
+.posterImage {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: percentage(5, 16);
+
+    @include mq(md) {
+        padding-top: percentage(9, 16);
+    }
+
+    @include mq(sm) {
+        padding-top: percentage(12, 16);
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--primary-color);
+        opacity: 0.3;
+    }
+}
+
+.content {
+    position: relative;
+    padding-top: var(--s-30);
+    @include fluidValue('padding-left', null, 260px);
+
+    @include mq(md) {
+        padding-left: 120px;
+    }
+
+    &Image {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border: 3px solid var(--mango);
+        @include fluidValue('width', null, 220px);
+        @include fluidValue('height', null, 330px);
+
+        @include mq(md) {
+            width: 100px;
+            height: 150px;
+        }
+    }
+
+    &TitleWrapper {
+    }
+
+    &Title {
+        margin-bottom: var(--s-5);
+
+        @include mq(sm) {
+            font-size: 25px;
+        }
+    }
+}
+
+.score {
+    display: inline-flex;
+    align-items: center;
+    color: var(--grey);
+
+    span {
+        color: var(--mango);
+        font-size: 1.2em;
+        padding-right: var(--s-5);
+        line-height: 1;
+    }
+}
