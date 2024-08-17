@@ -12,6 +12,11 @@
     flex-wrap: wrap;
     margin-left: calc(var(--s-10) * -1);
     margin-right: calc(var(--s-10) * -1);
+
+    @include mq(md) {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
 }
 
 .item {
