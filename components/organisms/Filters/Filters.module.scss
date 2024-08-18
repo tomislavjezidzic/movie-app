@@ -5,35 +5,48 @@
 .inner {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--s-5);
+    gap: var(--s-30);
 }
 
-.label {
-    display: block;
-    cursor: pointer;
-    border-radius: 100px;
-    padding: var(--s-5) var(--s-10);
-    border: 1px solid var(--mango);
-    transition:
-        color 0.3s,
-        background-color 0.3s;
+.selectWrapper {
 }
 
-.item {
-    display: inline-block;
+.select {
+    position: relative;
 
-    input {
-        -webkit-appearance: none;
+    &::before,
+    &::after {
+        --size: 0.3rem;
+        content: '';
         position: absolute;
-        width: 1px;
-        height: 1px;
-        left: 0;
-        top: 0;
-        visibility: hidden;
-
-        &:checked ~ .label {
-            background-color: var(--mango);
-            color: var(--primary-color);
-        }
+        right: 0;
+        pointer-events: none;
     }
+
+    &::before {
+        border-left: var(--size) solid transparent;
+        border-right: var(--size) solid transparent;
+        border-bottom: var(--size) solid var(--mango);
+        top: 35%;
+    }
+
+    &::after {
+        border-left: var(--size) solid transparent;
+        border-right: var(--size) solid transparent;
+        border-top: var(--size) solid var(--mango);
+        top: 60%;
+    }
+}
+
+.selectInput {
+    -webkit-appearance: none;
+    border-radius: 0;
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    color: var(--tertiary-color);
+    border-bottom: 1px solid var(--tertiary-color);
+    width: 100%;
+    padding-right: var(--s-30);
+    padding-top: var(--s-5);
 }

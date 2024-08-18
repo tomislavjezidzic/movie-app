@@ -40,33 +40,63 @@ const Filters = ({ setGenre, setYear, setScore }: GenresListProps) => {
         <section className={cn(styles.main, 'o-section', 'u-b2')}>
             <div className="o-container">
                 <div className={styles.inner}>
-                    <select name="genres" id="genres" onChange={ev => handleGenreChange(ev)}>
-                        <option value="all">All</option>
-                        {GENRES.genres.map((genre, key) => (
-                            <option key={`genres-item-${key}`} value={genre.id}>
-                                {genre.name}
-                            </option>
-                        ))}
-                    </select>
+                    <div className={styles.selectWrapper}>
+                        <p>Genre:</p>
+                        <div className={styles.select}>
+                            <select
+                                className={cn(styles.selectInput, 'u-b0')}
+                                name="genres"
+                                id="genres"
+                                onChange={ev => handleGenreChange(ev)}
+                            >
+                                <option value="all">All</option>
+                                {GENRES.genres.map((genre, key) => (
+                                    <option key={`genres-item-${key}`} value={genre.id}>
+                                        {genre.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
 
-                    <select name="years" id="years" onChange={ev => handleYearChange(ev)}>
-                        <option value="all">All</option>
-                        {/* 1887 is the first queryable year */}
-                        {[...Array(currentYear - 1886)].map((difference, key) => (
-                            <option key={`years-item-${key}`} value={currentYear - key}>
-                                {currentYear - key}
-                            </option>
-                        ))}
-                    </select>
+                    <div className={styles.selectWrapper}>
+                        <p>Year:</p>
+                        <div className={styles.select}>
+                            <select
+                                className={cn(styles.selectInput, 'u-b0')}
+                                name="years"
+                                id="years"
+                                onChange={ev => handleYearChange(ev)}
+                            >
+                                <option value="all">All</option>
+                                {/* 1887 is the first queryable year */}
+                                {[...Array(currentYear - 1886)].map((item, key) => (
+                                    <option key={`years-item-${key}`} value={currentYear - key}>
+                                        {currentYear - key}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
 
-                    <select name="score" id="score" onChange={ev => handleScoreChange(ev)}>
-                        <option value="all">All</option>
-                        {[...Array(10)].map((value, key) => (
-                            <option key={`score-item-${key}`} value={key + 1}>
-                                {key + 1}
-                            </option>
-                        ))}
-                    </select>
+                    <div className={styles.selectWrapper}>
+                        <p>Score:</p>
+                        <div className={styles.select}>
+                            <select
+                                className={cn(styles.selectInput, 'u-b0')}
+                                name="score"
+                                id="score"
+                                onChange={ev => handleScoreChange(ev)}
+                            >
+                                <option value="all">All</option>
+                                {[...Array(10)].map((item, key) => (
+                                    <option key={`score-item-${key}`} value={key + 1}>
+                                        {key + 1}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
