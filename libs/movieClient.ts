@@ -5,12 +5,10 @@ const axiosClient = axios.create({
     baseURL: process.env.TMDB_BASE_URL_ENDPOINT,
 });
 
-export async function getMostWatched(ids: number[], page?: number) {
-    const idsString = ids?.join('%2C');
-
+export async function getMostWatched(genreId: number, year: number, score: number, page?: number) {
     return await axiosClient
         .get(
-            `/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page ? page : 1}&sort_by=popularity.desc${idsString ? `&with_genres=${idsString}` : ''}&api_key=${process.env.TMDB_API_KEY}`
+            `/discover/movie?include_adult=false&include_video=false&language=en-US${year && `&year=${year}`}${score && `&vote_average.gte=${score}`}&page=${page ? page : 1}&sort_by=popularity.desc${genreId && `&with_genres=${genreId}`}&api_key=${process.env.TMDB_API_KEY}`
         )
         .catch(error => {
             console.log(error);

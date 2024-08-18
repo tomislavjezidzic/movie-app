@@ -7,6 +7,13 @@
     }
 }
 
+.noResults {
+    min-height: 80vh;
+    padding-top: var(--s-30);
+    padding-bottom: var(--s-150);
+    opacity: 0.5;
+}
+
 .list {
     display: flex;
     flex-wrap: wrap;

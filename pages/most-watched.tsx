@@ -8,13 +8,15 @@ import { MovieCardPropsResponse } from 'types/interfaces';
 import { getMostWatched } from '@libs/movieClient';
 import { useIntersectionObserverRef } from '@hooks/useIntersectionObserverRef';
 import { AxiosResponse } from 'axios';
-import GenresList from '@organisms/GenresList';
+import Filters from 'components/organisms/Filters';
 
 const MostWatchedPage = (initialData: { results: any }) => {
     const [page, setPage] = useState(2);
     const [data, setData] = useState(initialData.results);
     const [isLoading, setIsLoading] = useState(false);
-    const [genres, setGenres] = useState([]);
+    const [genre, setGenre] = useState(null);
+    const [score, setScore] = useState(null);
+    const [year, setYear] = useState(null);
 
     const callback = (entries: IntersectionObserverEntry[]) => {
         if (entries[0].intersectionRatio === 1 && !isLoading) {
@@ -25,14 +27,15 @@ const MostWatchedPage = (initialData: { results: any }) => {
     const [loadMoreRef] = useIntersectionObserverRef(callback);
 
     const makeApiCall = useCallback(
-        async (genres?: number[], passedPage?: number) => {
+        async (genre?: number, year?: number, score?: number, passedPage?: number) => {
             return await fetch('/api/movies', {
                 method: 'POST',
-                body: JSON.stringify(
-                    genres && genres.length > 0
-                        ? { genres: genres, page: passedPage ? passedPage : page }
-                        : { page: passedPage ? passedPage : page }
-                ),
+                body: JSON.stringify({
+                    genre: genre,
+                    year: year,
+                    score: score,
+                    page: passedPage ? passedPage : page,
+                }),
             });
         },
         [page]
@@ -41,31 +44,31 @@ const MostWatchedPage = (initialData: { results: any }) => {
     const loadMore = useCallback(() => {
         setIsLoading(true);
 
-        makeApiCall(genres).then(response => {
+        makeApiCall(genre, year, score).then(response => {
             response.json().then(newData => {
                 setData([...data, ...newData.remappedResults]);
                 setPage(p => p + 1);
                 setIsLoading(false);
             });
         });
-    }, [makeApiCall, genres, data]);
+    }, [makeApiCall, genre, year, score, data]);
 
     useEffect(() => {
         setIsLoading(true);
-        makeApiCall(genres ? genres : null, 1).then(response => {
+        makeApiCall(genre, year, score, 1).then(response => {
             response.json().then(newData => {
                 setData([...newData.remappedResults]);
                 setPage(2);
                 setIsLoading(false);
             });
         });
-    }, [genres]);
+    }, [genre, year, score]);
 
     return (
         <>
             <Header title="Most Watched" />
 
-            <GenresList genres={genres} setGenres={setGenres} />
+            <Filters setGenre={setGenre} setScore={setScore} setYear={setYear} />
 
             <MovieList items={data} isLoading={isLoading} />
 
@@ -75,7 +78,7 @@ const MostWatchedPage = (initialData: { results: any }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-    const data = await getMostWatched(null, 1);
+    const data = await getMostWatched(null, null, null, 1);
 
     return {
         props: {

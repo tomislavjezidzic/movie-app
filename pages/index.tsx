@@ -27,9 +27,9 @@ const IndexPage = (data: { newest: any; popularAnimation: any; popularAction: an
 export const getStaticProps: GetStaticProps = async () => {
     const newestResponse = await getNewest();
 
-    const popularActionResponse = await getMostWatched([28], 1);
+    const popularActionResponse = await getMostWatched(28, null, null, 1);
 
-    const popularAnimationResponse = await getMostWatched([16], 1);
+    const popularAnimationResponse = await getMostWatched(16, null, null, 1);
 
     const topResponse = await getTopRated();
 

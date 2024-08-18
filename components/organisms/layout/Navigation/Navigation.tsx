@@ -109,13 +109,16 @@ const Navigation = ({}: NavigationProps) => {
             >
                 <div className="o-container">
                     <div className={styles.inner}>
-                        <ul className={styles.movieList}>
+                        <div className={styles.movieList}>
                             {searchResults.map((movie: MovieCardProps, key) => (
-                                <li className={styles.movieItem} key={`search-result-movie-${key}`}>
-                                    <MovieCard {...movie} />
-                                </li>
+                                <a
+                                    href={`/movie/${movie.slug}`}
+                                    key={`movie-list-item-${key}`}
+                                >
+                                    {movie.title}
+                                </a>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>

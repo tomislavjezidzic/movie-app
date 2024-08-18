@@ -7,14 +7,14 @@ export interface MovieListProps {
     isLoading?: boolean;
 }
 
-const MovieList = ({ items, isLoading = false }: MovieListProps) => {
-    return (
-        <section
-            className={cn(styles.main, 'o-section', {
-                [styles.isLoading]: isLoading,
-            })}
-        >
-            <div className="o-container">
+const MovieList = ({ items, isLoading = false }: MovieListProps) => (
+    <section
+        className={cn(styles.main, 'o-section', {
+            [styles.isLoading]: isLoading,
+        })}
+    >
+        <div className="o-container">
+            {items?.length > 0 ? (
                 <div className={styles.list}>
                     {items.map((movie: MovieCardProps, key) => (
                         <div className={styles.item} key={`movie--${key}`}>
@@ -22,9 +22,13 @@ const MovieList = ({ items, isLoading = false }: MovieListProps) => {
                         </div>
                     ))}
                 </div>
-            </div>
-        </section>
-    );
-};
+            ) : (
+                <div className={styles.noResults}>
+                    <h1 className={cn('u-a5')}>No results</h1>
+                </div>
+            )}
+        </div>
+    </section>
+);
 
 export default MovieList;

@@ -6,18 +6,20 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         const page = JSON.parse(req.body).page;
         const searchQuery = JSON.parse(req.body).searchQuery;
-        const genres = JSON.parse(req.body).genres;
+        const genre = JSON.parse(req.body).genre;
+        const year = JSON.parse(req.body).year;
+        const score = JSON.parse(req.body).score;
         let results = [];
 
-        if (genres) {
-            const data = await getMostWatched(genres, page ? page : 1);
+        if (genre || year || score) {
+            const data = await getMostWatched(genre, year, score, page ? page : 1);
             if (data) {
                 results = data?.data?.results;
             } else {
                 results = [];
             }
         } else if (page) {
-            const data = await getMostWatched(null, page);
+            const data = await getMostWatched(null, null, null, page);
 
             if (data) {
                 results = data?.data?.results;
