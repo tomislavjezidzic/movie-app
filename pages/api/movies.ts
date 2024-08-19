@@ -10,19 +10,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const year = JSON.parse(req.body).year;
         const score = JSON.parse(req.body).score;
         let results = [];
+        let needsLoadMore = true;
 
-        if (genre || year || score) {
+        if (page) {
             const data = await getMostWatched(genre, year, score, page ? page : 1);
             if (data) {
                 results = data?.data?.results;
-            } else {
-                results = [];
-            }
-        } else if (page) {
-            const data = await getMostWatched(null, null, null, page);
-
-            if (data) {
-                results = data?.data?.results;
+                needsLoadMore = data?.data?.page < data?.data?.total_pages;
             } else {
                 results = [];
             }
@@ -52,7 +46,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             };
         });
 
-        res.status(200).json({ remappedResults });
+        res.status(200).json({ remappedResults, needsLoadMore });
     }
 };
 

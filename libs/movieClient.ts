@@ -6,9 +6,10 @@ const axiosClient = axios.create({
 });
 
 export async function getMostWatched(genreId: number, year: number, score: number, page?: number) {
+    const dynamicQuery = `${year && `&year=${year}`}${score && `&vote_average.gte=${score}`}&page=${page ? page : 1}${genreId && `&with_genres=${genreId}`}`;
     return await axiosClient
         .get(
-            `/discover/movie?include_adult=false&include_video=false&language=en-US${year && `&year=${year}`}${score && `&vote_average.gte=${score}`}&page=${page ? page : 1}&sort_by=popularity.desc${genreId && `&with_genres=${genreId}`}&api_key=${process.env.TMDB_API_KEY}`
+            `/discover/movie?include_adult=false&include_video=false&language=en-US${dynamicQuery}&sort_by=popularity.desc&api_key=${process.env.TMDB_API_KEY}`
         )
         .catch(error => {
             console.log(error);

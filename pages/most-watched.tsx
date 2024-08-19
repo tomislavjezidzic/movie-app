@@ -9,6 +9,7 @@ import { getMostWatched } from '@libs/movieClient';
 import { useIntersectionObserverRef } from '@hooks/useIntersectionObserverRef';
 import { AxiosResponse } from 'axios';
 import Filters from 'components/organisms/Filters';
+import LoadingIndicator from '@atoms/LoadingIndicator';
 
 const MostWatchedPage = (initialData: { results: any }) => {
     const [page, setPage] = useState(2);
@@ -17,14 +18,7 @@ const MostWatchedPage = (initialData: { results: any }) => {
     const [genre, setGenre] = useState(null);
     const [score, setScore] = useState(null);
     const [year, setYear] = useState(null);
-
-    const callback = (entries: IntersectionObserverEntry[]) => {
-        if (entries[0].intersectionRatio === 1 && !isLoading) {
-            loadMore();
-        }
-    };
-
-    const [loadMoreRef] = useIntersectionObserverRef(callback);
+    const [needsLoadMore, setNeedsLoadMore] = useState(true);
 
     const makeApiCall = useCallback(
         async (genre?: number, year?: number, score?: number, passedPage?: number) => {
@@ -46,6 +40,7 @@ const MostWatchedPage = (initialData: { results: any }) => {
 
         makeApiCall(genre, year, score).then(response => {
             response.json().then(newData => {
+                setNeedsLoadMore(newData.needsLoadMore);
                 setData([...data, ...newData.remappedResults]);
                 setPage(p => p + 1);
                 setIsLoading(false);
@@ -53,10 +48,22 @@ const MostWatchedPage = (initialData: { results: any }) => {
         });
     }, [makeApiCall, genre, year, score, data]);
 
+    const callback = useCallback(
+        (entries: IntersectionObserverEntry[]) => {
+            if (entries[0].intersectionRatio === 1 && !isLoading && needsLoadMore) {
+                loadMore();
+            }
+        },
+        [isLoading, needsLoadMore, loadMore]
+    );
+
+    const [loadMoreRef] = useIntersectionObserverRef(callback);
+
     useEffect(() => {
         setIsLoading(true);
         makeApiCall(genre, year, score, 1).then(response => {
             response.json().then(newData => {
+                setNeedsLoadMore(newData.needsLoadMore);
                 setData([...newData.remappedResults]);
                 setPage(2);
                 setIsLoading(false);
@@ -72,7 +79,13 @@ const MostWatchedPage = (initialData: { results: any }) => {
 
             <MovieList items={data} isLoading={isLoading} />
 
-            <div ref={loadMoreRef} />
+            <div ref={loadMoreRef}>
+                {needsLoadMore && (
+                    <div className="o-container">
+                        <LoadingIndicator centered />
+                    </div>
+                )}
+            </div>
         </>
     );
 };
