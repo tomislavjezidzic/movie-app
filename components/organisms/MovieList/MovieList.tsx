@@ -1,6 +1,7 @@
 import styles from './MovieList.module.scss';
 import MovieCard, { MovieCardProps } from '@molecules/MovieCard';
 import cn from 'classnames';
+import LoadingIndicator from '@atoms/LoadingIndicator';
 
 export interface MovieListProps {
     items: MovieCardProps[];
@@ -8,25 +9,31 @@ export interface MovieListProps {
 }
 
 const MovieList = ({ items, isLoading = false }: MovieListProps) => (
-    <section
-        className={cn(styles.main, 'o-section', {
-            [styles.isLoading]: isLoading,
-        })}
-    >
+    <section className={cn(styles.main, 'o-section')}>
         <div className="o-container">
-            {items?.length > 0 ? (
-                <div className={styles.list}>
-                    {items.map((movie: MovieCardProps, key) => (
-                        <div className={styles.item} key={`movie--${key}`}>
-                            <MovieCard {...movie} />
-                        </div>
-                    ))}
+            <div className={styles.inner}>
+                <div
+                    className={cn(styles.loadingWrapper, {
+                        [styles.isLoading]: isLoading,
+                    })}
+                >
+                    <LoadingIndicator />
                 </div>
-            ) : (
-                <div className={styles.noResults}>
-                    <h1 className={cn('u-a5')}>No results</h1>
-                </div>
-            )}
+
+                {items?.length > 0 ? (
+                    <div className={styles.list}>
+                        {items.map((movie: MovieCardProps, key) => (
+                            <div className={styles.item} key={`movie--${key}`}>
+                                <MovieCard {...movie} />
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className={styles.noResults}>
+                        <h1 className={cn('u-a5')}>No results</h1>
+                    </div>
+                )}
+            </div>
         </div>
     </section>
 );
