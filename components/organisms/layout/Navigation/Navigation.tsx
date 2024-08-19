@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
-import MovieCard, { MovieCardProps } from '@molecules/MovieCard';
+import { MovieCardProps } from '@molecules/MovieCard';
 import { useRouter } from 'next/router';
 
 export interface NavigationProps {}
@@ -23,15 +23,15 @@ const Navigation = ({}: NavigationProps) => {
     }, [navBar]);
 
     useEffect(() => {
-        const startHandler = () => {
+        const completeHandler = () => {
             setSearchQuery('');
             setSearchResults([]);
         };
 
-        router.events.on('routeChangeComplete', startHandler);
+        router.events.on('routeChangeComplete', completeHandler);
 
         return () => {
-            router.events.off('routeChangeComplete', startHandler);
+            router.events.off('routeChangeComplete', completeHandler);
         };
     }, []);
 

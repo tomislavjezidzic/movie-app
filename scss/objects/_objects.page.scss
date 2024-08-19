@@ -2,4 +2,21 @@
     background-color: var(--primary-color);
     color: var(--tertiary-color);
     padding-top: var(--navigation-height);
+
+    div,
+    header,
+    section,
+    footer {
+        opacity: 0;
+        transition: opacity 0.25s;
+    }
+
+    &--show {
+        div,
+        header,
+        section,
+        footer {
+            opacity: 1;
+        }
+    }
 }
