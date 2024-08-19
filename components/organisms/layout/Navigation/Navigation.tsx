@@ -15,7 +15,7 @@ const Navigation = ({}: NavigationProps) => {
     const router = useRouter();
     const pathname = usePathname();
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState(null);
     const searchCards = useRef<any>([]);
 
     useEffect(() => {
@@ -28,7 +28,7 @@ const Navigation = ({}: NavigationProps) => {
     useEffect(() => {
         const completeHandler = () => {
             setSearchQuery('');
-            setSearchResults([]);
+            setSearchResults(null);
         };
 
         router.events.on('routeChangeComplete', completeHandler);
@@ -57,7 +57,7 @@ const Navigation = ({}: NavigationProps) => {
                     });
                 });
             } else if (searchQuery.length < 3) {
-                setSearchResults([]);
+                setSearchResults(null);
             }
         }, 300);
 
@@ -70,7 +70,7 @@ const Navigation = ({}: NavigationProps) => {
     const handleKeyDown = useCallback(
         (ev: { key: string }, key: number) => {
             if (ev.key === 'ArrowDown') {
-                if (key < searchResults.length - 1 || key === undefined) {
+                if (key < searchResults?.length - 1 || key === undefined) {
                     searchCards?.current[key !== undefined ? key + 1 : 0]
                         ?.querySelector('a')
                         ?.focus();
@@ -121,21 +121,27 @@ const Navigation = ({}: NavigationProps) => {
 
                             <div
                                 className={cn(styles.searchResults, {
-                                    [styles.isVisible]: searchResults.length > 0,
+                                    [styles.isVisible]: searchResults,
                                 })}
                             >
                                 <div className={styles.inner}>
                                     <div className={styles.movieList} ref={searchResultsList}>
-                                        {searchResults.map((movie: MovieCardProps, key) => (
-                                            <div
-                                                // @ts-ignore
-                                                ref={el => (searchCards.current[key] = el)}
-                                                onKeyDown={ev => handleKeyDown(ev, key)}
-                                                key={`search-movie-card-${key}`}
-                                            >
-                                                <SimpleMovieCard {...movie} />
-                                            </div>
-                                        ))}
+                                        {searchResults?.length > 0 ? (
+                                            searchResults.map((movie, index) => (
+                                                <div
+                                                    key={`search-movie-card-${index}`}
+                                                    // @ts-ignore
+                                                    ref={element =>
+                                                        (searchCards.current[index] = element)
+                                                    }
+                                                    onKeyDown={event => handleKeyDown(event, index)}
+                                                >
+                                                    <SimpleMovieCard {...movie} />
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <p>No results</p>
+                                        )}
                                     </div>
                                 </div>
                             </div>

@@ -70,6 +70,13 @@
     @include mq(sm) {
         width: 100%;
     }
+
+    &:focus {
+        & + .searchResults.isVisible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
 }
 
 .searchInputWrapper {
@@ -95,7 +102,7 @@
         width: 100%;
     }
 
-    &.isVisible {
+    &:has(a:focus) {
         opacity: 1;
         pointer-events: auto;
     }
