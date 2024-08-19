@@ -2,18 +2,21 @@ import styles from './Navigation.module.scss';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import cn from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { MovieCardProps } from '@molecules/MovieCard';
 import { useRouter } from 'next/router';
+import SimpleMovieCard from '@molecules/SimpleMovieCard';
 
 export interface NavigationProps {}
 
 const Navigation = ({}: NavigationProps) => {
     const navBar = useRef(null);
+    const searchResultsList = useRef(null);
     const router = useRouter();
     const pathname = usePathname();
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const searchCards = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (navBar.current) {
@@ -64,6 +67,23 @@ const Navigation = ({}: NavigationProps) => {
         };
     }, [searchQuery]);
 
+    const handleKeyDown = useCallback(
+        (ev: { key: string }, key: number) => {
+            if (ev.key === 'ArrowDown') {
+                if (key < searchResults.length - 1 || key === undefined) {
+                    searchCards.current[key !== undefined ? key + 1 : 0]
+                        ?.querySelector('a')
+                        ?.focus();
+                }
+            } else if (ev.key === 'ArrowUp') {
+                if (key > 0) {
+                    searchCards.current[key - 1]?.querySelector('a')?.focus();
+                }
+            }
+        },
+        [searchCards, searchResults]
+    );
+
     return (
         <div className={styles.main}>
             <div className={styles.top} ref={navBar}>
@@ -95,29 +115,30 @@ const Navigation = ({}: NavigationProps) => {
                                 className={styles.searchInput}
                                 placeholder="Search Movies..."
                                 value={searchQuery}
-                                onChange={e => setSearchQuery(e.target.value)}
+                                onChange={ev => setSearchQuery(ev.target.value)}
+                                onKeyDown={ev => handleKeyDown(ev, undefined)}
                             />
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div
-                className={cn(styles.bottom, {
-                    [styles.isVisible]: searchResults.length > 0,
-                })}
-            >
-                <div className="o-container">
-                    <div className={styles.inner}>
-                        <div className={styles.movieList}>
-                            {searchResults.map((movie: MovieCardProps, key) => (
-                                <a
-                                    href={`/movie/${movie.slug}`}
-                                    key={`movie-list-item-${key}`}
-                                >
-                                    {movie.title}
-                                </a>
-                            ))}
+                            <div
+                                className={cn(styles.searchResults, {
+                                    [styles.isVisible]: searchResults.length > 0,
+                                })}
+                            >
+                                <div className={styles.inner}>
+                                    <div className={styles.movieList} ref={searchResultsList}>
+                                        {searchResults.map((movie: MovieCardProps, key) => (
+                                            <div
+                                                // @ts-ignore
+                                                ref={el => (searchCards.current[key] = el)}
+                                                onKeyDown={ev => handleKeyDown(ev, key)}
+                                                key={`search-movie-card-${key}`}
+                                            >
+                                                <SimpleMovieCard {...movie} />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

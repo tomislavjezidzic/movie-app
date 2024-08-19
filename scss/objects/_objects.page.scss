@@ -3,7 +3,6 @@
     color: var(--tertiary-color);
     padding-top: var(--navigation-height);
 
-    div,
     header,
     section,
     footer {
@@ -12,7 +11,6 @@
     }
 
     &--show {
-        div,
         header,
         section,
         footer {
