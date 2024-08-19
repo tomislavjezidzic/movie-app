@@ -1,5 +1,5 @@
-import SimpleMovieCard, { MovieCardProps } from './SimpleMovieCard';
+import SimpleMovieCard, { SimpleMovieCardProps } from './SimpleMovieCard';
 
-export type { MovieCardProps };
+export type { SimpleMovieCardProps };
 
 export default SimpleMovieCard;

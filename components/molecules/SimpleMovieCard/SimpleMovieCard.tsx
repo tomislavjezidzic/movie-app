@@ -2,8 +2,6 @@ import styles from './SimpleMovieCard.module.scss';
 import Image from 'next/image';
 import { useState } from 'react';
 import cn from 'classnames';
-import Icon from '@atoms/Icons';
-import FavoriteButton from '@atoms/FavoriteButton';
 
 export interface SimpleMovieCardProps {
     image?: {
