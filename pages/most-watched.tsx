@@ -15,6 +15,7 @@ const MostWatchedPage = (initialData: { results: any }) => {
     const [page, setPage] = useState(2);
     const [data, setData] = useState(initialData.results);
     const [isLoading, setIsLoading] = useState(false);
+    const [isFiltersLoading, setIsFiltersLoading] = useState(false);
     const [genre, setGenre] = useState(null);
     const [score, setScore] = useState(null);
     const [year, setYear] = useState(null);
@@ -60,13 +61,13 @@ const MostWatchedPage = (initialData: { results: any }) => {
     const [loadMoreRef] = useIntersectionObserverRef(callback);
 
     useEffect(() => {
-        setIsLoading(true);
+        setIsFiltersLoading(true);
         makeApiCall(genre, year, score, 1).then(response => {
             response.json().then(newData => {
                 setNeedsLoadMore(newData.needsLoadMore);
                 setData([...newData.remappedResults]);
                 setPage(2);
-                setIsLoading(false);
+                setIsFiltersLoading(false);
             });
         });
     }, [genre, year, score]);
@@ -77,7 +78,7 @@ const MostWatchedPage = (initialData: { results: any }) => {
 
             <Filters setGenre={setGenre} setScore={setScore} setYear={setYear} />
 
-            <MovieList items={data} isLoading={isLoading} />
+            <MovieList items={data} isLoading={isLoading} isFiltersLoading={isFiltersLoading} />
 
             <div ref={loadMoreRef}>
                 {needsLoadMore && (

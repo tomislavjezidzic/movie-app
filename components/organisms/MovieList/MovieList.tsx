@@ -6,15 +6,16 @@ import LoadingIndicator from '@atoms/LoadingIndicator';
 export interface MovieListProps {
     items: MovieCardProps[];
     isLoading?: boolean;
+    isFiltersLoading?: boolean;
 }
 
-const MovieList = ({ items, isLoading = false }: MovieListProps) => (
+const MovieList = ({ items, isLoading = false ,isFiltersLoading = false }: MovieListProps) => (
     <section className={cn(styles.main, 'o-section')}>
         <div className="o-container">
             <div className={styles.inner}>
                 <div
                     className={cn(styles.loadingWrapper, {
-                        [styles.isLoading]: isLoading,
+                        [styles.isLoading]: isFiltersLoading,
                     })}
                 >
                     <LoadingIndicator />
