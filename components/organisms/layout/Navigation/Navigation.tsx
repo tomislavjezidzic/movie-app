@@ -16,7 +16,7 @@ const Navigation = ({}: NavigationProps) => {
     const pathname = usePathname();
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const searchCards = useRef<HTMLDivElement>(null);
+    const searchCards = useRef<any>([]);
 
     useEffect(() => {
         if (navBar.current) {
@@ -71,13 +71,13 @@ const Navigation = ({}: NavigationProps) => {
         (ev: { key: string }, key: number) => {
             if (ev.key === 'ArrowDown') {
                 if (key < searchResults.length - 1 || key === undefined) {
-                    searchCards.current[key !== undefined ? key + 1 : 0]
+                    searchCards?.current[key !== undefined ? key + 1 : 0]
                         ?.querySelector('a')
                         ?.focus();
                 }
             } else if (ev.key === 'ArrowUp') {
                 if (key > 0) {
-                    searchCards.current[key - 1]?.querySelector('a')?.focus();
+                    searchCards?.current[key - 1]?.querySelector('a')?.focus();
                 }
             }
         },

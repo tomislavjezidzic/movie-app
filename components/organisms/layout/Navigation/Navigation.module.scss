@@ -67,13 +67,6 @@
     padding: var(--s-5) 0;
     color: var(--tertiary-color);
 
-    &:focus {
-        & + .searchResults.isVisible {
-            opacity: 1;
-            pointer-events: auto;
-        }
-    }
-
     @include mq(sm) {
         width: 100%;
     }
@@ -93,13 +86,18 @@
     position: absolute;
     top: 100%;
     right: 0;
-    //opacity: 0;
-    //pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
     transition: opacity 0.3s;
     @include fluidValue('width', null, 250px);
 
     @include mq(sm) {
         width: 100%;
+    }
+
+    &.isVisible {
+        opacity: 1;
+        pointer-events: auto;
     }
 }
 
