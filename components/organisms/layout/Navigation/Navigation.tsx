@@ -41,9 +41,6 @@ const Navigation = ({}: NavigationProps) => {
     const makeApiCall = async () => {
         return await fetch('/api/movies', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify({ searchQuery }),
         });
     };
