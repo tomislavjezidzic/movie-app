@@ -100,26 +100,27 @@ const MostWatchedPage = (initialData: { results: any }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
     const data = await getMostWatched(null, null, null, 1);
+    const results = (data as AxiosResponse<any, any>)?.data?.results;
 
     return {
         props: {
             title: 'Most Watched',
-            results: (data as AxiosResponse<any, any>)?.data?.results?.map(
-                (item: MovieCardPropsResponse): MovieCardProps => {
-                    return {
-                        image: {
-                            src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w300${item.poster_path}`,
-                            alt: item.title,
-                        },
-                        title: item.title,
-                        score: parseFloat(item.vote_average).toFixed(2),
-                        slug: `${item.id}-${slugify(item.title, {
-                            strict: true,
-                        }).toLowerCase()}`,
-                        id: item.id,
-                    };
-                }
-            ),
+            results: !results
+                ? []
+                : results?.map((item: MovieCardPropsResponse): MovieCardProps => {
+                      return {
+                          image: {
+                              src: `${process.env.TMDB_IMAGES_BASE_URL_ENDPOINT}/w300${item.poster_path}`,
+                              alt: item.title,
+                          },
+                          title: item.title,
+                          score: parseFloat(item.vote_average).toFixed(2),
+                          slug: `${item.id}-${slugify(item.title, {
+                              strict: true,
+                          }).toLowerCase()}`,
+                          id: item.id,
+                      };
+                  }),
         },
         revalidate: 3600,
     };
