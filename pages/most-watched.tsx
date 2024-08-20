@@ -39,14 +39,16 @@ const MostWatchedPage = (initialData: { results: any }) => {
     const loadMore = useCallback(() => {
         setIsLoading(true);
 
-        makeApiCall(genre, year, score).then(response => {
-            response.json().then(newData => {
+        makeApiCall(genre, year, score)
+            .then(response => response.json())
+            .then(newData => {
                 setNeedsLoadMore(newData.needsLoadMore);
                 setData([...data, ...newData.remappedResults]);
                 setPage(p => p + 1);
+            })
+            .finally(() => {
                 setIsLoading(false);
             });
-        });
     }, [makeApiCall, genre, year, score, data]);
 
     const callback = useCallback(
@@ -62,14 +64,17 @@ const MostWatchedPage = (initialData: { results: any }) => {
 
     useEffect(() => {
         setIsFiltersLoading(true);
-        makeApiCall(genre, year, score, 1).then(response => {
-            response.json().then(newData => {
+
+        makeApiCall(genre, year, score, 1)
+            .then(response => response.json())
+            .then(newData => {
                 setNeedsLoadMore(newData.needsLoadMore);
                 setData([...newData.remappedResults]);
                 setPage(2);
+            })
+            .finally(() => {
                 setIsFiltersLoading(false);
             });
-        });
     }, [genre, year, score]);
 
     return (
