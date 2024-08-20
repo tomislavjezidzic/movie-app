@@ -25,10 +25,13 @@ const MostWatchedPage = (initialData: { results: any }) => {
         async (genre?: number, year?: number, score?: number, passedPage?: number) => {
             return await fetch('/api/movies', {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
-                    genre: genre,
-                    year: year,
-                    score: score,
+                    genre,
+                    year,
+                    score,
                     page: passedPage ? passedPage : page,
                 }),
             });
