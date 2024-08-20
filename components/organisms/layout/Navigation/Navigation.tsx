@@ -49,13 +49,13 @@ const Navigation = ({}: NavigationProps) => {
         let isFetchActive = true;
         const timeoutId = setTimeout(() => {
             if (searchQuery && searchQuery.length >= 3) {
-                makeApiCall().then(response => {
-                    response.json().then(data => {
+                makeApiCall()
+                    .then(response => response.json())
+                    .then(data => {
                         if (isFetchActive) {
                             setSearchResults(data.remappedResults);
                         }
                     });
-                });
             } else if (searchQuery.length < 3) {
                 setSearchResults(null);
             }
