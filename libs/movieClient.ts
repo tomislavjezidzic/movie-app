@@ -12,7 +12,7 @@ export async function getMostWatched(genreId: number, year: number, score: numbe
             `/discover/movie?include_adult=false&include_video=false&language=en-US${dynamicQuery}&sort_by=popularity.desc&api_key=${process.env.TMDB_API_KEY}`
         )
         .catch(error => {
-            console.log(error);
+            console.log(`Most watched end point error: ${error}`);
         });
 }
 
@@ -20,7 +20,7 @@ export async function getNewest() {
     return await axiosClient
         .get(`/movie/now_playing?language=en-US&page=1&api_key=${process.env.TMDB_API_KEY}`)
         .catch(error => {
-            console.log(error);
+            console.log(`Newest end point error: ${error}`);
         });
 }
 
@@ -28,7 +28,7 @@ export async function getTopRated() {
     return await axiosClient
         .get(`/movie/top_rated?language=en-US&page=1&api_key=${process.env.TMDB_API_KEY}`)
         .catch(error => {
-            console.log(error);
+            console.log(`Top rated end point error: ${error}`);
         });
 }
 
@@ -38,7 +38,7 @@ export async function getMovie(movieId: number) {
             `/movie/${movieId}?append_to_response=credits&language=en-US&with_cast=true&api_key=${process.env.TMDB_API_KEY}`
         )
         .catch(error => {
-            console.log(error);
+            console.log(`Single movie end point error: ${error}`);
         });
 }
 
@@ -48,6 +48,6 @@ export async function getQueriedMovies(searchQuery: string) {
             `/search/movie?query=${searchQuery}&include_adult=false&language=en-US&api_key=${process.env.TMDB_API_KEY}`
         )
         .catch(error => {
-            console.log(error);
+            console.log(`Queried Movies end point error: ${error}`);
         });
 }

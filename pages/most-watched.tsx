@@ -48,7 +48,8 @@ const MostWatchedPage = (initialData: { results: any }) => {
             })
             .finally(() => {
                 setIsLoading(false);
-            });
+            })
+            .catch(err => console.log(`Load more error: ${err}`));
     }, [makeApiCall, genre, year, score, data]);
 
     const callback = useCallback(
@@ -74,7 +75,8 @@ const MostWatchedPage = (initialData: { results: any }) => {
             })
             .finally(() => {
                 setIsFiltersLoading(false);
-            });
+            })
+            .catch(err => console.log(`Filtering error: ${err}`));
     }, [genre, year, score]);
 
     return (

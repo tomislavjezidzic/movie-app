@@ -9,24 +9,26 @@ export interface MoviesScrollableRowProps {
 
 const MoviesScrollableRow = ({ title, items }: MoviesScrollableRowProps) => {
     return (
-        <section className={cn(styles.main, 'o-section')}>
-            <div className="o-container">
-                <div className={styles.inner}>
-                    <div className={styles.titleWrapper}>
-                        <h2 className={cn(styles.title, 'u-a3')}>{title}</h2>
-                    </div>
-                    <div className={styles.listWrapper}>
-                        <div className={styles.list}>
-                            {items.map((movie: MovieCardProps, key) => (
-                                <div className={styles.item} key={`movie-list-item-${key}`}>
-                                    <MovieCard {...movie} />
-                                </div>
-                            ))}
+        items?.length > 0 && (
+            <section className={cn(styles.main, 'o-section')}>
+                <div className="o-container">
+                    <div className={styles.inner}>
+                        <div className={styles.titleWrapper}>
+                            <h2 className={cn(styles.title, 'u-a3')}>{title}</h2>
+                        </div>
+                        <div className={styles.listWrapper}>
+                            <div className={styles.list}>
+                                {items.map((movie: MovieCardProps, key) => (
+                                    <div className={styles.item} key={`movie-list-item-${key}`}>
+                                        <MovieCard {...movie} />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        )
     );
 };
 

@@ -55,7 +55,8 @@ const Navigation = ({}: NavigationProps) => {
                         if (isFetchActive) {
                             setSearchResults(data.remappedResults);
                         }
-                    });
+                    })
+                    .catch(err => console.log(`Search error: ${err}`));
             } else if (searchQuery.length < 3) {
                 setSearchResults(null);
             }

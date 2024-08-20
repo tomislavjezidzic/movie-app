@@ -8,18 +8,25 @@ import { getMostWatched, getNewest, getTopRated } from '@libs/movieClient';
 import { MovieCardPropsResponse } from 'types/interfaces';
 import { AxiosResponse } from 'axios';
 
-const IndexPage = (data: { newest: any; popularAnimation: any; popularAction: any; top: any }) => {
+interface HomepageProps {
+    newest: MovieCardProps[];
+    popularAction: MovieCardProps[];
+    popularAnimation: MovieCardProps[];
+    top: MovieCardProps[];
+}
+
+const IndexPage = ({ newest, top, popularAnimation, popularAction }: HomepageProps) => {
     return (
         <>
             <Header title="Movie App Homepage" centered />
 
-            <MoviesRow title="Newest" items={data.newest} lazyLoad={false} />
+            <MoviesRow title="Newest" items={newest} lazyLoad={false} />
 
-            <MoviesRow title="Top Rated" items={data.top} />
+            <MoviesRow title="Top Rated" items={top} />
 
-            <MoviesScrollableRow title="Popular Animation" items={data.popularAnimation} />
+            <MoviesScrollableRow title="Popular Animation" items={popularAnimation} />
 
-            <MoviesScrollableRow title="Popular Action" items={data.popularAction} />
+            <MoviesScrollableRow title="Popular Action" items={popularAction} />
         </>
     );
 };
