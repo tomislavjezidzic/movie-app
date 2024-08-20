@@ -1,6 +1,5 @@
 import { GetStaticPaths } from 'next';
 import { getMovie } from '@libs/movieClient';
-import Image from 'next/image';
 import SingleMovieHeader from '@organisms/layout/SingleMovieHeader';
 import SingleMovieBody from '@organisms/SingleMovieBody';
 import Marquee from '@organisms/Marquee';
