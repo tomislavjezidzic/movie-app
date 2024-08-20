@@ -16,14 +16,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             const data = await getMostWatched(genre, year, score, page ? page : 1);
             if (data) {
                 results = await data?.data?.results;
-                needsLoadMore = (await data?.data?.page) < data?.data?.total_pages;
+                needsLoadMore = data?.data?.page < data?.data?.total_pages;
             } else {
                 results = [];
             }
         } else if (searchQuery) {
             const data = await getQueriedMovies(searchQuery);
             if (data) {
-                const allResults = (await data?.data?.results) || [];
+                const allResults = data?.data?.results || [];
 
                 results = allResults?.slice(0, 5);
             } else {
