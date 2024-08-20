@@ -15,7 +15,7 @@ const MostWatchedPage = (initialData: { results: any }) => {
     const [page, setPage] = useState(2);
     const [data, setData] = useState(initialData.results);
     const [isLoading, setIsLoading] = useState(false);
-    const [isFiltersLoading, setIsFiltersLoading] = useState(false);
+    const [isFiltersLoading, setIsFiltersLoading] = useState(true);
     const [genre, setGenre] = useState(null);
     const [score, setScore] = useState(null);
     const [year, setYear] = useState(null);
