@@ -91,7 +91,8 @@ const SearchResultsPage = () => {
     return (
         <>
             <Header
-                title={`Search Results for "${router.query.searchParam}" (${totalResults} result${totalResults > 1 ? 's' : ''})`}
+                title={`Search Results for "${router.query.searchParam}"`}
+                subtitle={`${totalResults} result${totalResults > 1 ? 's' : ''}`}
             />
 
             <MovieList items={searchResults} isFiltersLoading={isInitialLoading} />

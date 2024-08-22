@@ -3,10 +3,11 @@ import cn from 'classnames';
 
 export interface HeaderProps {
     title: string;
+    subtitle?: string;
     centered?: boolean;
 }
 
-const Header = ({ title, centered = false }: HeaderProps) => {
+const Header = ({ title, centered = false, subtitle }: HeaderProps) => {
     return (
         title && (
             <header
@@ -16,6 +17,8 @@ const Header = ({ title, centered = false }: HeaderProps) => {
             >
                 <div className="o-container">
                     <h1 className={cn(styles.title, 'u-a5')}>{title}</h1>
+
+                    {subtitle && <p className={cn(styles.subtitle, 'u-a3')}>{subtitle}</p>}
                 </div>
             </header>
         )
