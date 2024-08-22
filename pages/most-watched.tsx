@@ -85,7 +85,7 @@ const MostWatchedPage = (initialData: { results: any }) => {
 
             <Filters setGenre={setGenre} setScore={setScore} setYear={setYear} />
 
-            <MovieList items={data} isLoading={isLoading} isFiltersLoading={isFiltersLoading} />
+            <MovieList items={data} isFiltersLoading={isFiltersLoading} />
 
             <div ref={loadMoreRef}>
                 {needsLoadMore && (

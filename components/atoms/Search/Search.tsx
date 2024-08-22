@@ -75,7 +75,12 @@ const Search = ({}: SearchProps) => {
                     searchCards?.current[key - 1]?.querySelector('a')?.focus();
                 }
             } else if (ev.key === 'Enter' && ev.currentTarget.value.length > 2) {
-                router.push(`/search-results?query${ev.currentTarget.value}`).then(() => {});
+                router.push({
+                    pathname: `/search-results`,
+                    query: {
+                        searchParam: ev.currentTarget.value,
+                    },
+                });
             }
         },
         [searchCards, searchResults]

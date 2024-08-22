@@ -42,10 +42,10 @@ export async function getMovie(movieId: number) {
         });
 }
 
-export async function getQueriedMovies(searchQuery: string) {
+export async function getQueriedMovies(searchQuery: string, page?: string) {
     return await axiosClient
         .get(
-            `/search/movie?query=${searchQuery}&include_adult=false&language=en-US&api_key=${process.env.TMDB_API_KEY}`
+            `/search/movie?query=${searchQuery}&page=${page || '1'}&include_adult=false&language=en-US&api_key=${process.env.TMDB_API_KEY}`
         )
         .catch(error => {
             console.log(`Queried Movies endpoint error: ${error}`);
