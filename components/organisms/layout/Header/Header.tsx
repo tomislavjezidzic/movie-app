@@ -5,14 +5,16 @@ export interface HeaderProps {
     title: string;
     subtitle?: string;
     centered?: boolean;
+    full?: boolean;
 }
 
-const Header = ({ title, centered = false, subtitle }: HeaderProps) => {
+const Header = ({ title, centered = false, subtitle, full }: HeaderProps) => {
     return (
         title && (
             <header
                 className={cn(styles.main, 'o-header', {
                     [styles.centered]: centered,
+                    [styles.full]: full,
                 })}
             >
                 <div className="o-container">

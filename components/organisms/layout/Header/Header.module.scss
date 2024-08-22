@@ -5,6 +5,10 @@
     &.centered {
         text-align: center;
     }
+
+    &.full {
+        min-height: 90vh;
+    }
 }
 
 .subtitle {
