@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { AppProps as NextAppProps } from 'next/app';
-import useWindowResize from '@hooks/useWindowResize';
-import { setGlobalCSSVariable } from '@libs/helpers';
 import Fonts from '@organisms/layout/Fonts';
 import SeoHead from '@organisms/layout/SeoHead';
 import 'scss/style.scss';
@@ -17,18 +15,6 @@ type AppProps<P = any> = {
 const App = ({ Component, pageProps }: AppProps) => {
     const router = useRouter();
     const [isReady, setIsReady] = useState(true);
-
-    // set initial value
-    useEffect(() => {
-        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-            setGlobalCSSVariable('--window-height', `${window.innerHeight}px`);
-        }
-    }, []);
-
-    // reset value on resize
-    useWindowResize(() => {
-        setGlobalCSSVariable('--window-height', `${window.innerHeight}px`);
-    });
 
     useEffect(() => {
         const startHandler = () => setIsReady(false);

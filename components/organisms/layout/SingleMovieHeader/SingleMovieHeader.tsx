@@ -26,6 +26,7 @@ const SingleMovieHeader = ({
                 alt={title}
                 fill
                 priority
+                sizes="100vw"
                 style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
         </div>
@@ -37,6 +38,7 @@ const SingleMovieHeader = ({
                         alt={title}
                         fill
                         priority
+                        sizes="50w"
                         style={{ objectFit: 'cover', objectPosition: 'center' }}
                     />
                 </div>
