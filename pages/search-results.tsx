@@ -77,7 +77,7 @@ const SearchResultsPage = () => {
                     })
                     .catch(err => console.log(`Search error: ${err}`))
                     .finally(() => setIsInitialLoading(false));
-            } else if (searchQuery.length < 3) {
+            } else if (!searchQuery || searchQuery.length < 3) {
                 setSearchResults(null);
             }
         }, 300);
