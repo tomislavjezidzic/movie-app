@@ -24,9 +24,9 @@ const SingleMovieHeader = ({
             <Image
                 src={coverImage}
                 alt={title}
-                layout="fill"
-                objectFit="cover"
-                objectPosition="center"
+                fill
+                priority
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
         </div>
         <div className="o-container">
@@ -35,9 +35,9 @@ const SingleMovieHeader = ({
                     <Image
                         src={posterImage}
                         alt={title}
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="center"
+                        fill
+                        priority
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
                     />
                 </div>
 

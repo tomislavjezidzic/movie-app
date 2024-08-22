@@ -8,6 +8,7 @@ import { useIntersectionObserverRef } from '@hooks/useIntersectionObserverRef';
 
 const SearchResultsPage = () => {
     const router = useRouter();
+    const [totalResults, setTotalResults] = useState(0);
     const [searchResults, setSearchResults] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isInitialLoading, setIsInitialLoading] = useState(true);
@@ -71,6 +72,7 @@ const SearchResultsPage = () => {
                         if (isFetchActive) {
                             setSearchResults(data.remappedResults);
                             setNeedsLoadMore(data.needsLoadMore);
+                            setTotalResults(data.totalResults);
                         }
                     })
                     .catch(err => console.log(`Search error: ${err}`))
@@ -88,7 +90,9 @@ const SearchResultsPage = () => {
 
     return (
         <>
-            <Header title={`Search Results for "${router.query.searchParam}"`} />
+            <Header
+                title={`Search Results for "${router.query.searchParam}" (${totalResults} result${totalResults > 1 ? 's' : ''})`}
+            />
 
             <MovieList items={searchResults} isFiltersLoading={isInitialLoading} />
 

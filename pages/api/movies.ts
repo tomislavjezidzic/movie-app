@@ -11,14 +11,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         const score = JSON.parse(req.body).score;
         let results = [];
         let needsLoadMore = true;
+        let totalResults = null;
 
         if (searchQuery) {
             const data = await getQueriedMovies(searchQuery, page);
             if (data) {
                 const allResults = data?.data?.results || [];
                 needsLoadMore = data?.data?.page < data?.data?.total_pages;
-
-                console.log(233, data?.data?.page, data?.data?.total_pages);
+                totalResults = data?.data?.total_results;
 
                 results = !page ? allResults?.slice(0, 5) : allResults;
             } else {
@@ -49,7 +49,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             };
         });
 
-        res.status(200).json({ remappedResults, needsLoadMore });
+        res.status(200).json({ remappedResults, needsLoadMore, totalResults });
     }
 };
 
