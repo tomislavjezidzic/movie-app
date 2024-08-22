@@ -19,7 +19,6 @@ const SearchResultsPage = () => {
             method: 'POST',
             body: JSON.stringify({
                 searchQuery,
-                isSearchPage: true,
                 page: passedPage ? passedPage : page,
             }),
         });
@@ -32,9 +31,9 @@ const SearchResultsPage = () => {
             makeApiCall(searchQuery)
                 .then(response => response.json())
                 .then(newData => {
-                    setNeedsLoadMore(newData.needsLoadMore);
                     setSearchResults([...searchResults, ...newData.remappedResults]);
                     setPage(p => p + 1);
+                    setNeedsLoadMore(newData.needsLoadMore);
                 })
                 .finally(() => {
                     setIsLoading(false);
@@ -71,6 +70,7 @@ const SearchResultsPage = () => {
                     .then(data => {
                         if (isFetchActive) {
                             setSearchResults(data.remappedResults);
+                            setNeedsLoadMore(data.needsLoadMore);
                         }
                     })
                     .catch(err => console.log(`Search error: ${err}`))

@@ -6,7 +6,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         const page = JSON.parse(req.body).page;
         const searchQuery = JSON.parse(req.body).searchQuery;
-        const isSearchPage = JSON.parse(req.body).isSearchPage || false;
         const genre = JSON.parse(req.body).genre;
         const year = JSON.parse(req.body).year;
         const score = JSON.parse(req.body).score;
@@ -17,8 +16,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             const data = await getQueriedMovies(searchQuery, page);
             if (data) {
                 const allResults = data?.data?.results || [];
+                needsLoadMore = data?.data?.page < data?.data?.total_pages;
 
-                results = !isSearchPage ? allResults?.slice(0, 5) : allResults;
+                console.log(233, data?.data?.page, data?.data?.total_pages);
+
+                results = !page ? allResults?.slice(0, 5) : allResults;
             } else {
                 results = [];
             }
