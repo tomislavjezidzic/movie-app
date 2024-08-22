@@ -74,13 +74,15 @@ const Search = ({}: SearchProps) => {
                 if (key > 0) {
                     searchCards?.current[key - 1]?.querySelector('a')?.focus();
                 }
-            } else if (ev.key === 'Enter' && ev.currentTarget.value.length > 2) {
-                router.push({
-                    pathname: `/search-results`,
-                    query: {
-                        searchParam: ev.currentTarget.value,
-                    },
-                });
+            } else if (ev.key === 'Enter' && ev.currentTarget?.value?.length > 2) {
+                router
+                    .push({
+                        pathname: `/search-results`,
+                        query: {
+                            searchParam: ev.currentTarget.value,
+                        },
+                    })
+                    .then(() => {});
             }
         },
         [searchCards, searchResults]
