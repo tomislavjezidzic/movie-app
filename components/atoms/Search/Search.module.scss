@@ -1,0 +1,58 @@
+.main {
+    position: relative;
+    display: inline-block;
+
+    @include mq(sm) {
+        min-width: 200px;
+    }
+}
+
+.input {
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    outline: 0;
+    border-bottom: 1px solid var(--mango);
+    padding: var(--s-5) 0;
+    color: var(--tertiary-color);
+
+    @include mq(sm) {
+        width: 100%;
+    }
+
+    &:focus {
+        & + .results.isVisible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}
+
+.results {
+    background-color: var(--secondary-color);
+    position: absolute;
+    top: 100%;
+    right: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    @include fluidValue('width', null, 250px);
+
+    @include mq(sm) {
+        width: 100%;
+    }
+
+    &:has(a:focus) {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.list {
+    width: 100%;
+    padding: var(--s-15);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-5);
+}
