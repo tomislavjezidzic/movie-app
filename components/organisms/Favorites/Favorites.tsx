@@ -41,10 +41,7 @@ const Favorites = ({}: FavoritesProps) => {
                         });
                     });
                 })
-                .finally(() => {
-                    setIsLoading(false);
-                    console.log(items);
-                });
+                .finally(() => setIsLoading(false));
         }
     }, []);
 
@@ -54,11 +51,12 @@ const Favorites = ({}: FavoritesProps) => {
                 <div className="o-container">
                     <div className={styles.top}>
                         <h2 className={cn('u-a4')}>Favorites</h2>
+
+                        {isLoading && <LoadingIndicator />}
                     </div>
                 </div>
 
                 {!isLoading && <MovieList items={items} />}
-                {isLoading && <LoadingIndicator />}
             </div>
         </section>
     );
