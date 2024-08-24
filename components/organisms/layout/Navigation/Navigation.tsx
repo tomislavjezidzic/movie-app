@@ -2,12 +2,15 @@ import styles from './Navigation.module.scss';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import cn from 'classnames';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Search from '@atoms/Search';
+import Icon from '@atoms/Icons';
+import Favorites from '@organisms/Favorites';
 
 export interface NavigationProps {}
 
 const Navigation = ({}: NavigationProps) => {
+    const [favoritesOpened, setFavoritesOpened] = useState(false);
     const navBar = useRef(null);
     const pathname = usePathname();
 
@@ -19,37 +22,53 @@ const Navigation = ({}: NavigationProps) => {
     }, [navBar]);
 
     return (
-        <div className={styles.main}>
-            <div className={styles.top} ref={navBar}>
-                <div className="o-container">
-                    <div className={styles.inner}>
-                        <nav className={styles.navigation}>
-                            <ul className={styles.navigationList}>
-                                <li
-                                    className={cn(styles.navigationItem, {
-                                        [styles.isActive]: pathname === '/',
-                                    })}
-                                >
-                                    <Link href="/">Home</Link>
-                                </li>
+        <>
+            <div className={styles.main}>
+                <div className={styles.top} ref={navBar}>
+                    <div className="o-container">
+                        <div className={styles.inner}>
+                            <nav className={styles.navigation}>
+                                <ul className={styles.navigationList}>
+                                    <li
+                                        className={cn(styles.navigationItem, {
+                                            [styles.isActive]: pathname === '/',
+                                        })}
+                                    >
+                                        <Link href="/">Home</Link>
+                                    </li>
 
-                                <li
-                                    className={cn(styles.navigationItem, {
-                                        [styles.isActive]: pathname === '/most-watched',
-                                    })}
-                                >
-                                    <Link href="/most-watched">Most Watched</Link>
-                                </li>
-                            </ul>
-                        </nav>
+                                    <li
+                                        className={cn(styles.navigationItem, {
+                                            [styles.isActive]: pathname === '/most-watched',
+                                        })}
+                                    >
+                                        <Link href="/most-watched">Most Watched</Link>
+                                    </li>
+                                </ul>
+                            </nav>
 
-                        <div className={styles.searchInputWrapper}>
-                            <Search />
+                            <div className={styles.actions}>
+                                <button
+                                    className={cn(styles.favorited, {
+                                        [styles.isActive]: favoritesOpened,
+                                    })}
+                                    onClick={() => setFavoritesOpened(!favoritesOpened)}
+                                >
+                                    <span>
+                                        <Icon name="heartFill" />
+                                    </span>
+                                </button>
+
+                                <div className={styles.search}>
+                                    <Search />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            {favoritesOpened && <Favorites />}
+        </>
     );
 };
 

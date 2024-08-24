@@ -1,0 +1,16 @@
+.main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding-top: var(--navigation-height);
+    background-color: var(--primary-color);
+    z-index: getZindex(favorites);
+}
+
+.inner {
+    padding-top: var(--s-60);
+    padding-bottom: var(--s-60);
+}
