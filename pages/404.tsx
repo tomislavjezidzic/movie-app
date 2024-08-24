@@ -4,7 +4,7 @@ import Header from '@organisms/layout/Header';
 const IndexPage = () => {
     return (
         <>
-            <Header title="404" centered full/>
+            <Header title="404" centered full />
         </>
     );
 };

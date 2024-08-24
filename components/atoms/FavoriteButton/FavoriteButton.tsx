@@ -1,15 +1,15 @@
 import styles from './FavoriteButton.module.scss';
-import Icon from "@atoms/Icons";
-import {useCallback, useEffect, useState} from "react";
-import {useLocalstorageState} from "@hooks/useLocalstorageState";
-import cn from "classnames";
+import Icon from '@atoms/Icons';
+import { useCallback, useEffect, useState } from 'react';
+import { useLocalstorageState } from '@hooks/useLocalstorageState';
+import cn from 'classnames';
 
 export interface FavoriteButtonProps {
-    id: string
-    large?: boolean
+    id: string;
+    large?: boolean;
 }
 
-const FavoriteButton = ({id, large= false}: FavoriteButtonProps) => {
+const FavoriteButton = ({ id, large = false }: FavoriteButtonProps) => {
     const [movieIds, setMovieIds] = useLocalstorageState('favorite_movies', '');
     const [isFavorited, setIsFavorited] = useState(false);
 
@@ -31,10 +31,13 @@ const FavoriteButton = ({id, large= false}: FavoriteButtonProps) => {
     }, [movieIds]);
 
     return (
-        <button onClick={handleClick} className={cn(styles.button, {
-            [styles.isLarge]: large
-        })}>
-            {isFavorited ? <Icon name="heartFill"/> : <Icon name="heartOutline"/>}
+        <button
+            onClick={handleClick}
+            className={cn(styles.button, {
+                [styles.isLarge]: large,
+            })}
+        >
+            {isFavorited ? <Icon name="heartFill" /> : <Icon name="heartOutline" />}
         </button>
     );
 };

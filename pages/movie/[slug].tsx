@@ -27,7 +27,7 @@ const SingleMoviePage = ({
     duration,
     country,
     cast,
-    id
+    id,
 }: SingleMoviePageProps) => {
     return (
         <>

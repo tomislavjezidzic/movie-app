@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getMostWatched, getMovie, getQueriedMovies } from '@libs/movieClient';
+import { getMovie } from '@libs/movieClient';
 import slugify from 'slugify';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
