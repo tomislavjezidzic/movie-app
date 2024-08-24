@@ -14,7 +14,8 @@
     "license": "ISC",
     "dependencies": {
         "@bornfight/b-reset": "^1.0.8",
-        "axios": "^1.7.4",
+        "axios": "^1",
+        "axios-cache-interceptor": "^1",
         "classnames": "^2.3.2",
         "fs": "^0.0.1-security",
         "next": "^15.0.0-rc.0",
