@@ -61,16 +61,19 @@ const Search = ({}: SearchProps) => {
             ev: {
                 currentTarget: any;
                 key: string;
+                preventDefault: () => void;
             },
             key: number
         ) => {
             if (ev.key === 'ArrowDown') {
+                ev.preventDefault();
                 if (key < searchResults?.length - 1 || key === undefined) {
                     searchCards?.current[key !== undefined ? key + 1 : 0]
                         ?.querySelector('a')
                         ?.focus();
                 }
             } else if (ev.key === 'ArrowUp') {
+                ev.preventDefault();
                 if (key > 0) {
                     searchCards?.current[key - 1]?.querySelector('a')?.focus();
                 }
