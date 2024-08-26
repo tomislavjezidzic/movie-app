@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { MovieCardPropsResponse } from 'types/interfaces';
 import { getMostWatched } from '@libs/movieClient';
 import { useIntersectionObserverRef } from '@hooks/useIntersectionObserverRef';
-import { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import Filters from 'components/organisms/Filters';
 import LoadingIndicator from '@atoms/LoadingIndicator';
 
@@ -23,14 +23,11 @@ const MostWatchedPage = (initialData: { results: any }) => {
 
     const makeApiCall = useCallback(
         async (genre?: number, year?: number, score?: number, passedPage?: number) => {
-            return await fetch('/api/movies', {
-                method: 'POST',
-                body: JSON.stringify({
-                    genre,
-                    year,
-                    score,
-                    page: passedPage ? passedPage : page,
-                }),
+            return await axios.post('/api/movies', {
+                genre,
+                year,
+                score,
+                page: passedPage ? passedPage : page,
             });
         },
         [page]
@@ -40,10 +37,10 @@ const MostWatchedPage = (initialData: { results: any }) => {
         setIsLoading(true);
 
         makeApiCall(genre, year, score)
-            .then(response => response.json())
             .then(newData => {
-                setNeedsLoadMore(newData.needsLoadMore);
-                setData([...data, ...newData.remappedResults]);
+                console.log(newData);
+                setNeedsLoadMore(newData.data.needsLoadMore);
+                setData([...data, ...newData.data.remappedResults]);
                 setPage(p => p + 1);
             })
             .finally(() => {
@@ -67,10 +64,9 @@ const MostWatchedPage = (initialData: { results: any }) => {
         setIsFiltersLoading(true);
 
         makeApiCall(genre, year, score, 1)
-            .then(response => response.json())
             .then(newData => {
-                setNeedsLoadMore(newData.needsLoadMore);
-                setData([...newData.remappedResults]);
+                setNeedsLoadMore(newData.data.needsLoadMore);
+                setData([...newData.data.remappedResults]);
                 setPage(2);
             })
             .finally(() => {

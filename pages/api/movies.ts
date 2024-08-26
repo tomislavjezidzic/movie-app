@@ -4,11 +4,11 @@ import slugify from 'slugify';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
-        const page = JSON.parse(req.body).page;
-        const searchQuery = JSON.parse(req.body).searchQuery;
-        const genre = JSON.parse(req.body).genre;
-        const year = JSON.parse(req.body).year;
-        const score = JSON.parse(req.body).score;
+        const page = req.body.page;
+        const searchQuery = req.body.searchQuery;
+        const genre = req.body.genre;
+        const year = req.body.year;
+        const score = req.body.score;
         let results = [];
         let needsLoadMore = true;
         let totalResults = null;

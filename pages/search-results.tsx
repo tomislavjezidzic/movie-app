@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import MovieList from '@organisms/MovieList';
 import LoadingIndicator from '@atoms/LoadingIndicator';
 import { useIntersectionObserverRef } from '@hooks/useIntersectionObserverRef';
+import axios from 'axios';
 
 const SearchResultsPage = () => {
     const router = useRouter();
@@ -15,26 +16,22 @@ const SearchResultsPage = () => {
     const [needsLoadMore, setNeedsLoadMore] = useState(true);
     const [page, setPage] = useState(2);
 
-    const makeApiCall = async (searchQuery: string, passedPage?: number) => {
-        return await fetch('/api/movies', {
-            method: 'POST',
-            body: JSON.stringify({
-                searchQuery,
-                page: passedPage ? passedPage : page,
-            }),
+    const makeApiCall = useCallback(async (searchQuery: string, passedPage?: number) => {
+        return await axios.post('/api/movies', {
+            searchQuery,
+            page: passedPage ? passedPage : page,
         });
-    };
+    }, []);
 
     const loadMore = useCallback(
         (searchQuery: string) => {
             setIsLoading(true);
 
             makeApiCall(searchQuery)
-                .then(response => response.json())
                 .then(newData => {
-                    setSearchResults([...searchResults, ...newData.remappedResults]);
+                    setSearchResults([...searchResults, ...newData.data.remappedResults]);
                     setPage(p => p + 1);
-                    setNeedsLoadMore(newData.needsLoadMore);
+                    setNeedsLoadMore(newData.data.needsLoadMore);
                 })
                 .finally(() => {
                     setIsLoading(false);
@@ -67,12 +64,11 @@ const SearchResultsPage = () => {
         const timeoutId = setTimeout(() => {
             if (searchQuery && searchQuery.length >= 3) {
                 makeApiCall(searchQuery, 1)
-                    .then(response => response.json())
                     .then(data => {
                         if (isFetchActive) {
-                            setSearchResults(data.remappedResults);
-                            setNeedsLoadMore(data.needsLoadMore);
-                            setTotalResults(data.totalResults);
+                            setSearchResults(data.data.remappedResults);
+                            setNeedsLoadMore(data.data.needsLoadMore);
+                            setTotalResults(data.data.totalResults);
                         }
                     })
                     .catch(err => console.log(`Search error: ${err}`))
