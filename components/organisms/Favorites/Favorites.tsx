@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLocalstorageState } from '@hooks/useLocalstorageState';
 import MovieList from '@organisms/MovieList';
 import LoadingIndicator from '@atoms/LoadingIndicator';
-import { MovieCardProps } from '@molecules/MovieCard';
+import axios from 'axios';
 
 export interface FavoritesProps {}
 
@@ -16,36 +16,42 @@ const Favorites = ({}: FavoritesProps) => {
     const makeApiCall = async (movieId: string) => {
         if (!movieId) return;
 
-        return await fetch('/api/movie', {
-            method: 'POST',
-            body: JSON.stringify({
-                movieId,
-            }),
-        });
+        return await axios.post('/api/movie', { movieId });
     };
 
     useEffect(() => {
         const storageIds = movieIds !== null && movieIds !== '' ? JSON.parse(movieIds) : [];
         const moviePromises = [];
+
         if (storageIds?.length > 0) {
             const fetchData = async () => {
                 storageIds.forEach((movieId: string) => {
                     moviePromises.push(makeApiCall(movieId));
                 });
 
-                const data = await Promise.all(moviePromises)
-                    .then(data => data.map(item => item.json()))
-                    .then(data => {
-                        data.forEach(d => {
-                            d.then((singleMovie: MovieCardProps) => {
-                                setItems(items => [...items, singleMovie]);
-                            });
-                        });
-                    })
-                    .finally(() => setIsLoading(false));
+                const data = await Promise.all(moviePromises);
+                return await Promise.all(data);
             };
 
-            fetchData().catch(err => console.log(err));
+            fetchData()
+                .then(data => {
+                    setItems(
+                        data.map(item => {
+                            const itemData = item?.data;
+                            return {
+                                image: itemData?.image,
+                                title: itemData?.title,
+                                score: itemData?.score,
+                                slug: itemData?.slug,
+                                id: itemData?.id,
+                            };
+                        })
+                    );
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                })
+                .catch(err => console.log(err));
         } else {
             setIsLoading(false);
         }

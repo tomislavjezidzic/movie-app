@@ -4,7 +4,7 @@ import slugify from 'slugify';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
-        const movieId = JSON.parse(req.body).movieId;
+        const movieId = req.body.movieId;
         let result = null;
 
         if (movieId) {
