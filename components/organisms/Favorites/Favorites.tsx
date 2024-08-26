@@ -28,20 +28,26 @@ const Favorites = ({}: FavoritesProps) => {
         const storageIds = movieIds !== null && movieIds !== '' ? JSON.parse(movieIds) : [];
         const moviePromises = [];
         if (storageIds?.length > 0) {
-            storageIds.forEach((movieId: string) => {
-                moviePromises.push(makeApiCall(movieId));
-            });
+            const fetchData = async () => {
+                storageIds.forEach((movieId: string) => {
+                    moviePromises.push(makeApiCall(movieId));
+                });
 
-            Promise.all(moviePromises)
-                .then(data => data.map(item => item.json()))
-                .then(data => {
-                    data.forEach(d => {
-                        d.then((singleMovie: MovieCardProps) => {
-                            setItems(items => [...items, singleMovie]);
+                const data = await Promise.all(moviePromises)
+                    .then(data => data.map(item => item.json()))
+                    .then(data => {
+                        data.forEach(d => {
+                            d.then((singleMovie: MovieCardProps) => {
+                                setItems(items => [...items, singleMovie]);
+                            });
                         });
-                    });
-                })
-                .finally(() => setIsLoading(false));
+                    })
+                    .finally(() => setIsLoading(false));
+            };
+
+            fetchData().catch(err => console.log(err));
+        } else {
+            setIsLoading(false);
         }
     }, []);
 
