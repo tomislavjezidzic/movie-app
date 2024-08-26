@@ -3,6 +3,7 @@ import cn from 'classnames';
 import SimpleMovieCard, { SimpleMovieCardProps } from '@molecules/SimpleMovieCard';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 export interface SearchProps {}
 
@@ -13,22 +14,19 @@ const Search = ({}: SearchProps) => {
     const [searchResults, setSearchResults] = useState(null);
     const searchCards = useRef<any>([]);
 
-    const makeApiCall = async () => {
-        return await fetch('/api/movies', {
-            method: 'POST',
-            body: JSON.stringify({ searchQuery }),
-        });
-    };
+    const makeApiCall = useCallback(async () => {
+        if (!searchQuery) return;
+        return await axios.post('/api/movies', { searchQuery });
+    }, [searchQuery]);
 
     useEffect(() => {
         let isFetchActive = true;
         const timeoutId = setTimeout(() => {
             if (searchQuery && searchQuery.length >= 3) {
                 makeApiCall()
-                    .then(response => response.json())
                     .then(data => {
                         if (isFetchActive) {
-                            setSearchResults(data.remappedResults);
+                            setSearchResults(data.data.remappedResults);
                         }
                     })
                     .catch(err => console.log(`Search error: ${err}`));

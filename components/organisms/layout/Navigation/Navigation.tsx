@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
-import Search from '@atoms/Search';
 import Icon from '@atoms/Icons';
 import Favorites from '@organisms/Favorites';
+import Search from '@atoms/Search';
 
 export interface NavigationProps {}
 

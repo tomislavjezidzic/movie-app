@@ -38,7 +38,6 @@ const MostWatchedPage = (initialData: { results: any }) => {
 
         makeApiCall(genre, year, score)
             .then(newData => {
-                console.log(newData);
                 setNeedsLoadMore(newData.data.needsLoadMore);
                 setData([...data, ...newData.data.remappedResults]);
                 setPage(p => p + 1);
